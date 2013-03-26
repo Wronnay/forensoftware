@@ -1,0 +1,126 @@
+html {
+background-color : #ffffff;
+}
+img {border:0px;}
+body {
+font-family: Arial, Verdana, Helvetica, sans-serif;
+margin: 0 auto;
+}
+#logo {text-align: center; margin: 0 auto; padding: 5px 15px 15px 15px;}
+.title {padding : 5px 0px 5px 0px; border-bottom:1px solid #cccccc; font-size : 18px;}
+.title2 {padding : 5px 0px 5px 0px; font-size : 16px;}
+#seite {
+background-color : #cccccc;
+  background-image:url(../../images/system/installh.png); 
+  background-repeat:repeat-x; 
+  background-position:top center;
+font-size: 15px;
+text-align: left;
+width:300px;
+box-shadow: 0px 0px 15px #000000;
+border-radius: 30px;
+margin: 0 auto;
+padding: 5px 15px 5px 15px;
+}
+#footer {
+position:static;
+padding: 5px 15px 5px 15px;
+font-size: 12px;
+text-align: center;
+opacity: 0.7;
+margin: 0 auto;
+}
+#footer img {float:left;}
+.text {line-height: 60px;}
+#footer a:link {color:#000000; text-decoration:none;}
+#footer a:visited {color:#000000; text-decoration:none;}
+#footer a:focus {color:#000000; text-decoration:none;}
+#footer a:hover {color:#000000; text-decoration:underline;}
+#footer a:active {color:#000000; text-decoration:none;}
+#seite a:link    {color: #414141;  text-decoration:none; border-bottom:1px solid #656565;}
+#seite a:visited {color: #414141;  text-decoration:none; border-bottom:1px solid #656565;}
+#seite a:focus   {color: #414141;  text-decoration:none; border-bottom:1px solid #656565;}
+#seite a:hover   {color: #000000;  text-decoration:none; border-bottom:1px solid #000000;}
+#seite a:active  {color: #414141;  text-decoration:none; border-bottom:1px solid #656565;}
+.lb {
+ cursor: pointer;
+ color:#ffffff;
+ background-color: #000000;
+   padding: 5px 5px 5px 5px;
+   font-size: 12px;
+   border:1px solid #ffffff;
+   margin-top:5px;
+   -moz-box-shadow: 0px 0px 5px #000000;
+-webkit-box-shadow: 0px 0px 5px #000000;
+box-shadow: 0px 0px 5px #000000;
+border-radius: 30px;
+ }
+
+.lb:hover {
+ cursor: pointer;
+ color:#ffffff;
+ background-color: #000000;
+   padding: 5px 5px 5px 5px;
+   font-size: 12px;
+   border:1px solid #ffffff;
+   margin-top:5px;
+   -moz-box-shadow: 0px 0px 5px #000000;
+-webkit-box-shadow: 0px 0px 5px #000000;
+box-shadow: 0px 0px 5px #000000;
+opacity: 0.5;
+border-radius: 30px;
+}
+
+.li {
+border:1px solid #000000;
+color:#000000;
+background-color : #ffffff;
+   padding: 5px 5px 5px 5px;
+   font-size: 12px;
+   margin-bottom:5px;
+   border-radius: 30px;
+ }
+.lio {
+color:#000000;
+background-color: #ffffff;
+   font-size: 12px;
+   border-radius: 30px;
+ }
+.lio:hover {
+color:#ffffff;
+background-color: #000000;
+   font-size: 12px;
+   border-radius: 30px;
+ }
+ .li1 {
+border:1px solid #000000;
+color:#000000;
+background-color : #ffffff;
+   padding: 5px 5px 5px 5px;
+   font-size: 12px;
+   margin-bottom:5px;
+   margin-right:5px;
+   border-radius: 30px;
+ }
+ .fehler {
+ text-align: left;
+border-left:5px solid #ff0000;
+background-color: #ffafaf;
+padding: 5px 5px 5px 5px;
+margin: 5px 5px 5px 5px;
+ }
+.erfolg {
+ text-align: left;
+border-left:5px solid #36a736;
+background-color: #a6ffa6;
+padding: 5px 5px 5px 5px;
+margin: 5px 5px 5px 5px;
+ }
+.comment {
+ text-align: left;
+border-left:2px solid #cccccc;
+border-bottom:2px solid #cccccc;
+background-color: #ffffff;
+padding: 5px 5px 5px 5px;
+margin: 5px 5px 5px 5px;
+}
