@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS `$PREFIX_smilies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `color` varchar(220) NOT NULL,
+  `title` varchar(220) NOT NULL,
+  `url` varchar(220) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `$PREFIX_smilies` (`id`, `color`, `title`, `url`) VALUES
+(1, 'green', ':alien:', 'icon_alien.gif'),
+(2, 'green', ':biggrin:', 'icon_biggrin.gif'),
+(3, 'green', ':blush:', 'icon_blush.gif'),
+(4, 'green', ':censored:', 'icon_censored.gif'),
+(5, 'green', ':confused:', 'icon_confused.gif'),
+(6, 'green', ':cool:', 'icon_cool.gif'),
+(7, 'green', ':cuinlove:', 'icon_cuinlove.gif'),
+(8, 'green', ':down:', 'icon_down.gif'),
+(9, 'green', ':eek:', 'icon_eek.gif'),
+(10, 'green', ':erschreckt:', 'icon_erschreckt.gif'),
+(11, 'green', ':fies:', 'icon_fies.gif'),
+(12, 'green', ':frown:', 'icon_frown.gif'),
+(13, 'green', ':igitt:', 'icon_igitt.gif'),
+(14, 'green', ':irre:', 'icon_irre.gif'),
+(15, 'green', ':lol:', 'icon_lol.gif'),
+(16, 'green', ':mad:', 'icon_mad.gif'),
+(17, 'green', ':neutral:', 'icon_neutral.gif'),
+(18, 'green', ':nosmile:', 'icon_nosmile.gif'),
+(19, 'green', ':razz:', 'icon_razz.gif'),
+(20, 'green', ':rolleyes:', 'icon_rolleyes.gif'),
+(21, 'green', ':shocked:', 'icon_shocked.gif'),
+(22, 'green', ':skeptisch:', 'icon_skeptisch.gif'),
+(23, 'green', ':slash:', 'icon_slash.gif'),
+(24, 'green', ':smile:', 'icon_smile.gif'),
+(25, 'green', ':x', 'icon_stumm.gif'),
+(26, 'green', ':ugly:', 'icon_ugly.gif'),
+(27, 'green', ':wink:', 'icon_wink.gif');

@@ -1,0 +1,18 @@
+Schritt 1:
+------------------------
+-> Zip-Archiv entpacken
+
+
+Schritt 2:
+------------------------
+-> Alle Dateien hochladen
+
+
+Schritt 3:
+------------------------
+-> im Ordner "install" die "index.php" Datei ausfuehren und den Anweisungen folgen
+
+
+Schritt 4:
+------------------------
+-> den Ordner "install" löschen!
