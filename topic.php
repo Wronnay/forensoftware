@@ -326,7 +326,7 @@ else {
 <img title="RSS" src="images/icons/mix/rss.png" alt="" /></a> 
 </div>
 <div class="postmain">
-<div style="text-shadow: 0 0 0.2em #000000, 0 0 0.5em #000000;">
+<div class="pdinfos" style="text-shadow: 0 0 0.2em #000000, 0 0 0.5em #000000;">
 <?php
 if($row['title'] == '') {}
 else {
@@ -335,7 +335,7 @@ else {
 <?php
 }
 ?>
-geschrieben am: <?php echo nocss($row['date']); ?>
+<?php echo l310; ?>: <?php echo nocss($row['date']); ?>
 </div>
 <div class="posttext">
 <?php

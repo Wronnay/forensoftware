@@ -6,7 +6,6 @@ include '../inc/config.php';
 mysql_connect($HOST,$USER,$PW)or die(mysql_error());
 mysql_select_db($DB)or die(mysql_error());
 include '../inc/functions.php';
-include '../inc/data.php';
 ini_set("session.gc_maxlifetime", 2000);
 $default_lang = 'en';
 if(!isset($_SESSION['lang']))
@@ -32,6 +31,7 @@ include '../lang/de/1.php';
   {
 include '../lang/en/1.php';
   }
+include '../inc/data.php';
 if ($site_referrer == 'yes') {
 ?>
 <!DOCTYPE HTML>

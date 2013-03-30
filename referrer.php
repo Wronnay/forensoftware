@@ -6,8 +6,8 @@ include 'inc/config.php';
 mysql_connect($HOST,$USER,$PW)or die(mysql_error());
 mysql_select_db($DB)or die(mysql_error());
 include 'inc/functions.php';
-include 'inc/data.php';
 include 'inc/lang.php';
+include 'inc/data.php';
 if ($site_referrer == 'yes') {
 ?>
 <!DOCTYPE HTML>
