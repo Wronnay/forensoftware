@@ -31,11 +31,6 @@ define('l29', 'Autor');
 define('l30', 'Antworten');
 define('l31', 'Themen');
 define('l32', 'Es gibt noch keine Themen!');
-define('l33', 'Lizenz');
-define('l34', 'Dieses Werk bzw. Inhalt steht unter einer Creative Commons Namensnennung-Nicht-kommerziell-
-Weitergabe unter gleichen Bedingungen 3.0 Unported Lizenz.');
-define('l35', 'Sie dürfen die Links zu Celzekr.tk, ForenSoftware.tk und zu Scripts.Wronnay.net nicht entfernen!<br>
-Sollten Sie nur Teile dieses Scripts verwenden, müssen Sie einen Link zu ForenSoftware.tk setzen!');
 define('l36', 'Einloggen');
 define('l37', 'Passwort');
 define('l38', '<div class="fehler">Bitte füllen Sie alle Felder aus!</div>');

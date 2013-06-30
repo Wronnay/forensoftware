@@ -1,19 +1,12 @@
 <!DOCTYPE HTML>
 <!--
 Forum Software by Christoph Miksche
-Website: http://forensoftware.tk
-License: Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
-
-Dieses Werk bzw. Inhalt steht unter einer Creative Commons Namensnennung-Nicht-kommerziell-
-Weitergabe unter gleichen Bedingungen 3.0 Unported Lizenz.
-
-Sie duerfen den Link zu http://forensoftware.tk nicht entfernen!
-
-Sollten Sie nur Teile dieses Scripts verwenden, müssen Sie einen Link zu ForenSoftware.tk setzen!
-
-(http://creativecommons.org/licenses/by-nc-sa/3.0/)
+Copyright 2012, 2013 Christoph Daniel Miksche
+Website: ForenSoftware.tk
+License: GNU General Public License
 -->
 <html><head><title><?php echo $subsite_title; ?> - <?php echo $site_title; ?></title>
+<meta name="Generator" content="Wronnay ForenSoftware (http://forensoftware.tk)" />
 <meta name="description" content="<?php echo $site_description; ?>">
 <meta name="keywords" content="<?php echo $site_keywords; ?>">
 <meta charset="ISO-8859-1"><link rel="shortcut icon" href="<?php echo $site_favicon; ?>">

@@ -60,7 +60,7 @@ case "write":
         echo l38;
       }
 	    else {
-	  $bodynachricht = parse_bbcode(presql($_REQUEST['body']));
+	  $bodynachricht = presql($_REQUEST['body']);
 	  $sql = "INSERT INTO ".$PREFIX."_nachrichten (userFrom, userTo, subject, body, sendtime) VALUES ('".$_SESSION['id']."','".presql($_REQUEST['userTo'])."','".presql($_REQUEST['subject'])."','".$bodynachricht."', now())";
 	  $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
 	  echo l51;
@@ -126,7 +126,7 @@ mysql_query("UPDATE ".$PREFIX."_nachrichten SET readen = '1' WHERE ID = '".presq
 <b><?php echo l58; ?></b>: <a href="user.php?id=<?php echo nocss($row['userFrom']); ?>"><?php echo $fromuser; ?></a><br>
 <b><?php echo l59; ?></b>: <?php echo nocss($row['send']); ?><br>
 </p><p>
-<?php echo nl2p(nocss($row['body'])); ?>
+<?php echo nl2p(parse_bbcode($row['body'])); ?>
 </p>
 <h2><?php echo l60; ?>:</h2>
 <p>
@@ -211,7 +211,7 @@ if ($row['readen'] == '1') { $gelesen = l67; } else { $gelesen = l68; }
 <b><?php echo l59; ?></b>: <?php echo nocss($row['send']); ?><br>
 <b><?php echo l69; ?></b>: <?php echo $gelesen ?>
 </p><p>
-<?php echo nl2p(nocss($row['body'])); ?>
+<?php echo nl2p(parse_bbcode($row['body'])); ?>
 </p>
 <h2><?php echo l60; ?>:</h2>
 <p>
