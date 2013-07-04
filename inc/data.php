@@ -277,5 +277,5 @@ $site_keywords = nocss($row1['text']);
     while ($row1 = mysql_fetch_assoc($result1)) {
 $site_design = nocss($row1['url']);
     }
-$version = '0.5';
+$version = '0.6';
 ?>
