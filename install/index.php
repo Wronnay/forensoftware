@@ -1,5 +1,5 @@
 <?php
-header('content-type: text/html; charset=ISO-8859-1');
+header('content-type: text/html; charset=UTF-8');
 error_reporting(0);
 ob_start();
 ini_set("session.gc_maxlifetime", 2000);
