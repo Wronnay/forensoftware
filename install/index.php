@@ -1,5 +1,5 @@
 <?php
-header('content-type: text/html; charset=UTF-8');
+header('content-type: text/html; charset=ISO-8859-1');
 error_reporting(0);
 ob_start();
 ini_set("session.gc_maxlifetime", 2000);
@@ -32,7 +32,7 @@ include '../lang/en/1.php';
 <html>
  <head>
  <title><?php echo l277; ?> | ForenSoftware</title>
-<meta charset="utf-8" />
+<meta charset="ISO-8859-1" />
 <link rel="stylesheet" type="text/css" href="../design/system/install.css">
  </head>
  <body>
