@@ -44,7 +44,7 @@ include 'design/header.php';
                 $errors[]= l135;
             if(trim($_POST['hallo'])=='')
                 $errors[]= l136;
-            elseif(!preg_match('§^[\w\.-]+@[\w\.-]+\.[\w]{2,4}$§', trim($_POST['hallo'])))
+            elseif(!filter_var(trim($_POST['hallo']), FILTER_VALIDATE_EMAIL))
                 $errors[]= l137;
             elseif(in_array(trim($_POST['hallo']), $emails))
                 $errors[]= l138;

@@ -60,7 +60,7 @@ include 'inc/check.php';
 
                 if(trim($_POST['Email'])=='')
                     $errors[]= l95;
-                elseif(!preg_match('§^[\w\.-]+@[\w\.-]+\.[\w]{2,4}$§', trim($_POST['Email'])))
+                elseif(!filter_var(trim($_POST['Email']), FILTER_VALIDATE_EMAIL))
                     $errors[]= l96;
                 elseif(in_array(trim($_POST['Email']), $emails) AND trim($_POST['Email'])!= $row['email'])
                     $errors[]= l97;

@@ -204,8 +204,6 @@ include("../inc/config.php");
                 $errors[]= l135;
             if(trim($_POST['hallo'])=='')
                 $errors[]= l136;
-            elseif(!preg_match('§^[\w\.-]+@[\w\.-]+\.[\w]{2,4}$§', trim($_POST['hallo'])))
-                $errors[]= l137;
             elseif(in_array(trim($_POST['hallo']), $emails))
                 $errors[]= l138;
             if(trim($_POST['Password'])=='')
