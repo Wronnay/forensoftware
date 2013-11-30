@@ -12,6 +12,8 @@ header("Location: install/index.php");
 mysql_connect($HOST,$USER,$PW)or die(mysql_error());
 mysql_select_db($DB)or die(mysql_error());
 include 'inc/functions.php';
+$_SESSION['lang'] = presql($_SESSION['lang']);
+$_SESSION['lang'] = nocss($_SESSION['lang']);
 include 'inc/data.php';
 $design = nocss($_GET['design']);
 if (isset($design) and !empty($design)) {

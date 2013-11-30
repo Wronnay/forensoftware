@@ -176,6 +176,7 @@ echo $quote;
 else {
 $result_total = mysql_query('SELECT COUNT(*) as `total` FROM `'.$PREFIX.'_posts` WHERE topic_id = '.presql($_GET['id']).'');
 $row_total = mysql_fetch_assoc($result_total);
+$iCounter = 0; // Werbung
 $gesamte_anzahl = $row_total['total'];
 $ergebnisse_pro_seite = 15;
 $gesamt_seiten = ceil($gesamte_anzahl/$ergebnisse_pro_seite);
@@ -243,6 +244,14 @@ echo '<a target="_blank" href="rss/topic.php?id='.nocss($_GET['id']).''.$quseite
 	    echo l161;
 	}
     while ($row = mysql_fetch_assoc($result)) {
+/*Werbung*/
+if($iCounter == 5) {
+include 'ads.php';
+$iCounter = 0;
+}
+/*Werbung Ende*/
+
+$iCounter ++; // Werbung
 		$a = "SELECT username, avatar, email, signature, website, facebook, twitter, googleplus, rang FROM ".$PREFIX."_user WHERE id=".$row['autor_id']."";
  $a_result = mysql_query($a) OR die("<pre>\n".$a."</pre>\n".mysql_error());
     while ($au = mysql_fetch_assoc($a_result)) {

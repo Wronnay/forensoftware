@@ -46,7 +46,7 @@ echo l76;
 ?>
 <form method="post" enctype="multipart/form-data" action="search.php">
 <input type="text" name="suchbegriff" size="40">
-<input type="submit" name="submit" value="<?php echo l75; ?>" name="<?php echo l75; ?>">
+<input type="submit" name="submit" value="<?php echo l75; ?>">
 </form>
 <?php
 }
