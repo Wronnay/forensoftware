@@ -59,7 +59,7 @@ switch($_GET["admin"]){
 <p><?php echo l208; ?></p>
 <div class="title"><img src="../images/system/logo.png" alt="ForenSoftware:"></div>
 <p><b><?php echo l209; ?>:</b> <?php echo $version; ?><br>
-<a href="http://forensoftware.tk" target="_blank"><?php echo l210; ?></a>
+<a href="http://scripts.wronnay.net" target="_blank"><?php echo l210; ?></a>
 </p>
 <?php
   break;

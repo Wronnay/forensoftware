@@ -3,7 +3,7 @@
     ----------------------------------------------------------
 
     Copyright 2012, 2013 Christoph Daniel Miksche
-    Website: ForenSoftware.tk
+    Website: scripts.wronnay.net
     License: GNU General Public License
 
     ----------------------------------------------------------

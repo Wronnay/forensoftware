@@ -13,13 +13,13 @@ if ($site_referrer == 'yes') {
 <!DOCTYPE HTML>
 <!--
 Forum Software by Christoph Miksche
-Website: http://forensoftware.net.tc/
+Website: http://scripts.wronnay.net
 License: Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
 
 Dieses Werk bzw. Inhalt steht unter einer Creative Commons Namensnennung-Nicht-kommerziell-
 Weitergabe unter gleichen Bedingungen 3.0 Unported Lizenz.
 
-Sie duerfen den Link zu http://forensoftware.net.tc/ nicht entfernen!
+Sie duerfen den Link zu http://scripts.wronnay.net nicht entfernen!
 
 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 -->
@@ -33,7 +33,7 @@ Sie duerfen den Link zu http://forensoftware.net.tc/ nicht entfernen!
 <p class="text"><?php echo l84; ?> <A HREF="<?php echo nocss($_SERVER['QUERY_STRING']); ?>"><?php echo nocss($_SERVER['QUERY_STRING']); ?></A> <?php echo l85; ?></p>
 <p>
 <!--Den Link nicht entfernen!-->
-<a href="http://forensoftware.tk" target="_blank">ForenSoftware by WronnayScripts</a>
+<a href="http://scripts.wronnay.net" target="_blank">ForenSoftware by WronnayScripts</a>
 <!--Den Link nicht entfernen! end-->
 </p>
 </body>

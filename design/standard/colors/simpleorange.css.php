@@ -6,13 +6,13 @@
 COLORDESIGN
 --------------------------------
 Design by Christoph Miksche
-Website: http://celzekr.tk
+Website: http://celzekr.webpage4.me
 License: Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
 
 Dieses Werk bzw. Inhalt steht unter einer Creative Commons Namensnennung-Nicht-kommerziell-
 Weitergabe unter gleichen Bedingungen 3.0 Unported Lizenz.
 
-Sie duerfen den/die Link/s zu Celzekr.tk nicht entfernen!
+Sie duerfen den/die Link/s zu celzekr.webpage4.me nicht entfernen!
 
 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 */

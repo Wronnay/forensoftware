@@ -2,11 +2,11 @@
 <!--
 Forum Software by Christoph Miksche
 Copyright 2012, 2013 Christoph Daniel Miksche
-Website: ForenSoftware.tk
+Website: Scripts.Wronnay.net
 License: GNU General Public License
 -->
 <html><head><title><?php echo $subsite_title; ?> - <?php echo $site_title; ?></title>
-<meta name="Generator" content="Wronnay ForenSoftware (http://forensoftware.tk)" />
+<meta name="Generator" content="Wronnay ForenSoftware (http://Scripts.Wronnay.net)" />
 <meta name="description" content="<?php echo $site_description; ?>">
 <meta name="keywords" content="<?php echo $site_keywords; ?>">
 <meta charset="ISO-8859-1"><link rel="shortcut icon" href="<?php echo $site_favicon; ?>">

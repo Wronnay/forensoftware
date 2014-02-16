@@ -232,7 +232,7 @@ define('l233', 'Untertitel');
 define('l234', 'Untertitel anzeigen:');
 define('l235', 'Logo');
 define('l236', 'Logo anzeigen:');
-define('l237', '<a href="../referrer.php?http://forensoftware.tk" target="_blank">Weiterleitung</a> anzeigen:');
+define('l237', '<a href="../referrer.php?http://scripts.wronnay.net/" target="_blank">Weiterleitung</a> anzeigen:');
 define('l238', 'Favicon');
 define('l239', 'Url');
 define('l240', 'Beschreibung');

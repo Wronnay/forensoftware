@@ -23,7 +23,7 @@ if(isset($_SESSION[base64_decode('aWQ=')]))
 <div id="credits"><!--Den Link nicht entfernen!-->
 Language: <a href="index.php?lang=de">Deutsch</a> - 
 <a href="index.php?lang=en">English</a><br>
-ForenSoftware &copy; <a href="http://forensoftware.tk" target="_blank">WronnayScripts</a>
+ForenSoftware &copy; <a href="http://Scripts.Wronnay.net" target="_blank">WronnayScripts</a>
  - <a href="credits.php">Credits</a> - <a href="license.php">License</a>
 <?php
 // if ($smilies == '1') { echo ' | <a href="http://www.greensmilies.com/" target="_blank">Smilies by GreenSmilies.com</a>'; }

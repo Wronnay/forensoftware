@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `$PREFIX_data` (
 
 INSERT INTO `$PREFIX_data` (`id`, `name`, `url`, `text`, `date`, `active`, `lang`) VALUES
 (1, 'title', 'none', 'Support Forum', NOW(), 0, 'de'),
-(2, 'subtitle', 'none', 'Das Support-Forum von ForenSoftware.tk', NOW(), 0, 'de'),
+(2, 'subtitle', 'none', 'Das Support-Forum von Scripts.Wronnay.net', NOW(), 0, 'de'),
 (3, 'logo', 'images/system/logo2.png', 'Das Logo von der ForenSoftware', NOW(), 1, 'de'),
 (4, 'favicon', 'images/system/favicon.ico', 'none', NOW(), 0, 'de'),
 (5, 'headtitle', 'none', 'Support Forum', NOW(), 0, 'de'),
@@ -23,7 +23,7 @@ INSERT INTO `$PREFIX_data` (`id`, `name`, `url`, `text`, `date`, `active`, `lang
 (12, 'keywords', 'none', 'Support Forum, forum, foren, board', NOW(), 0, 'de'),
 (13, 'design', 'colors/blue.css.php', 'none', NOW(), 0, 'de'),
 (14, 'title', 'none', 'Support Forum', NOW(), 0, 'en'),
-(15, 'subtitle', 'none', 'Das Support-Forum von ForenSoftware.tk', NOW(), 0, 'en'),
+(15, 'subtitle', 'none', 'Das Support-Forum von Scripts.Wronnay.net', NOW(), 0, 'en'),
 (16, 'logo', 'images/system/logo2.png', 'Das Logo von der ForenSoftware', NOW(), 1, 'en'),
 (17, 'favicon', 'images/system/favicon.ico', 'none', NOW(), 0, 'en'),
 (18, 'headtitle', 'none', 'Support Forum', NOW(), 0, 'en'),
