@@ -284,6 +284,7 @@ define('l285', 'further');
 define('l286', 'The passwords do not match. <br> <a href="?install="> Back to Step 1 </ a> <br>'); 
 define('l287', 'Admin data (To manage the software)'); 
 define('l288', 'Installation is complete!'); 
+define('l289', ''); 
 define('l290', 'Moderators area'); 
 define('l291', 'Posts'); 
 define('l292', 'The 15 most recent posts as RSS feed'); 
