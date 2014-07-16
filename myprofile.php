@@ -201,7 +201,7 @@ include 'inc/sbbcb.php';
    }
                 $from = "From: ".$site_email."\n";
 $from .= "Content-Type: text/html; charset=ISO-8859-15\n";
-mail(presql(trim($autoremail)), l316,"".l317." "."<br>"."<a href=\"".$site_url."/forgotten.php\">".$site_url."/forgotten.php</a>", $from);
+if($site_user_act == '1') { mail(presql(trim($autoremail)), l316,"".l317." "."<br>"."<a href=\"".$site_url."/forgotten.php\">".$site_url."/forgotten.php</a>", $from); }
                 echo l112.
                      "\n";
             }

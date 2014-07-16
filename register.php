@@ -64,6 +64,8 @@ include 'design/header.php';
                  echo "<div class=\"fehler\">".$error."</div>\n";
         }
         else{
+if($site_user_act == '1') { $actmeth = 'no'; }
+else { $actmeth = 'yes'; }
             $sql = "INSERT INTO
                            ".$PREFIX."_user
                             (
@@ -82,7 +84,7 @@ include 'design/header.php';
                              '".presql(trim($_POST['hallo']))."',
                              '".presql(trim($_POST['Show_Email']))."',
                              '".$act_code."',
-                             'no'
+                             '".$actmeth."'
                             )
                    ";
             mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());

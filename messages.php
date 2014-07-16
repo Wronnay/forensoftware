@@ -77,7 +77,7 @@ case "write":
 	  $ID = mysql_insert_id();
 $from = "From: ".$site_email."\n";
 $from .= "Content-Type: text/html; charset=ISO-8859-15\n";
-mail(presql(trim($autoremail)), l314, "".l315." "."<br>"."<a href=\"".$site_url."/messages.php?action=box&id=".$ID."\">".$site_url."/messages.php?action=box&id=".$ID."</a>", $from);
+if($site_user_act == '1') { mail(presql(trim($autoremail)), l314, "".l315." "."<br>"."<a href=\"".$site_url."/messages.php?action=box&id=".$ID."\">".$site_url."/messages.php?action=box&id=".$ID."</a>", $from); }
 	  echo l51;
 		}
   }
