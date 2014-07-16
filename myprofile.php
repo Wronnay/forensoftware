@@ -188,6 +188,20 @@ include 'inc/sbbcb.php';
                                 id = '".$_SESSION['id']."'
                        ";
                 mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+      $auesql = "
+	  SELECT
+            email
+        FROM
+            ".$PREFIX."_user
+	    WHERE id  = '".presql($_SESSION['id'])."'
+	  ";
+	   $aue2 = mysql_query($auesql) OR die("<pre>\n".$auesql."</pre>\n".mysql_error());
+	   while ($auerow = mysql_fetch_assoc($aue2)) {
+		  $autoremail = $auerow['email'];
+   }
+                $from = "From: ".$site_email."\n";
+$from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+mail(presql(trim($autoremail)), l316,"".l317." "."<br>"."<a href=\"".$site_url."/forgotten.php\">".$site_url."/forgotten.php</a>", $from);
                 echo l112.
                      "\n";
             }

@@ -136,6 +136,22 @@ else {$referrer1 = 'none';}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
+                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());	
+               $sql = "UPDATE
+                                ".$PREFIX."_data
+                        SET
+								active =  '".presql(trim($_POST['user_act']))."'
+                        WHERE
+                                name = 'email_act'
+                       ";
+                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+                $sql = "UPDATE
+                                ".$PREFIX."_data
+                        SET
+								url =  '".presql(trim($_POST['server_email']))."'
+                        WHERE
+                                name = 'email'
+                       ";
                 mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());						
 				
                 echo l228.
@@ -205,6 +221,21 @@ else {$referrer1 = 'none';}
             }
 ?>
 </td></tr>
+<?php
+           echo "<tr><td>\n".
+                 w132.
+                 "</td><td>\n";
+            if($site_user_act == '1'){
+                echo "<input type=\"radio\" name=\"user_act\" value=\"1\" checked> ".l102."\n";
+                echo "<input type=\"radio\" name=\"user_act\" value=\"0\"> ".l103."\n";
+            }
+            else{
+                echo "<input type=\"radio\" name=\"user_act\" value=\"1\"> ".l102."\n";
+                echo "<input type=\"radio\" name=\"user_act\" value=\"0\" checked> ".l103."\n";
+            }
+?>
+</td></tr>
+      <tr><td><?php echo w133; ?>: </td><td><input type="text" class="li" name="server_email" value="<?php echo $site_email; ?>" size="50"></td></tr>
 	  <tr><td><?php echo l238; ?>: </td><td><input type="text" class="li" name="favicon" value="<?php echo $site_favicon; ?>" size="50"></td></tr>
 	  <tr><td><?php echo l239; ?>: </td><td><input type="text" class="li" name="url" value="<?php echo $site_url; ?>" size="50"></td></tr>
       <tr><td><?php echo l240; ?>: </td><td><input type="text" class="li" name="description" value="<?php echo $site_description; ?>" size="50"></td></tr>

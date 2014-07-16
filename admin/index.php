@@ -55,12 +55,62 @@ include '../inc/showbbc.php';
 switch($_GET["admin"]){
   case "":
 ?>
+<article style="float:right;">
+<h3><?php echo w85; ?></h3>
+<?php
+    $sql = "SELECT
+                COUNT(*)
+            FROM
+                ".$PREFIX."_online
+            WHERE
+                DATE_SUB(NOW(), INTERVAL 2 MINUTE) < date
+           ";
+    $result = mysql_query($sql);
+    $user_now = mysql_result($result, 0);
+    $sql = "SELECT
+                number
+            FROM
+               ".$PREFIX."_counter
+            WHERE
+                date = CURDATE()
+           ";
+    $result = mysql_query($sql);
+    $row = mysql_fetch_assoc($result);
+    $user_heute = $row['number']; 
+    $sql = "SELECT
+                number
+            FROM
+                ".$PREFIX."_counter
+            WHERE
+                date = DATE_SUB(CURDATE(), INTERVAL 1 DAY)  
+           ";
+    $result = mysql_query($sql);
+    $row = mysql_fetch_assoc($result);
+    $user_gestern = $row['number']; 
+    $sql = "SELECT
+                SUM(number)
+            FROM
+                ".$PREFIX."_counter
+           ";
+    $result = mysql_query($sql);
+    $user_gesamt = mysql_result($result, 0); 
+    echo " <table cellpadding=\"2\" style=\"margin-bottom:10px;\">\n".
+         "  <tr><td>".w86."</td><td style=\"text-align:right;\">".$user_now."</td></tr>\n".
+         "  <tr><td>".w87."</td><td style=\"text-align:right;\">".$user_heute."</td></tr>\n".
+         "  <tr><td>".w88."</td><td style=\"text-align:right;\">".$user_gestern."</td></tr>\n".
+         "  <tr><td>".w89."</td><td style=\"text-align:right;\">".$user_gesamt."</td></tr>\n".
+         " </table>\n"; 
+?> 
+
+</article>
+<article style="float:left;">
 <div class="title"><?php echo l207; ?></div>
 <p><?php echo l208; ?></p>
 <div class="title"><img src="../images/system/logo.png" alt="ForenSoftware:"></div>
 <p><b><?php echo l209; ?>:</b> <?php echo $version; ?><br>
-<a href="http://scripts.wronnay.net" target="_blank"><?php echo l210; ?></a>
+<script src="http://scripts.wronnay.net/fs/update.php?lang=<?php echo $_SESSION['lang']; ?>&version=<?php echo $version; ?>" type="text/javascript"></script>
 </p>
+</article>
 <?php
   break;
   case "categories":

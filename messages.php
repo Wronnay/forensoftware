@@ -60,9 +60,24 @@ case "write":
         echo l38;
       }
 	    else {
+			$auesql = "
+	  SELECT
+            email
+        FROM
+            ".$PREFIX."_user
+	    WHERE id  = '".presql($_REQUEST['userTo'])."'
+	  ";
+	   $aue2 = mysql_query($auesql) OR die("<pre>\n".$auesql."</pre>\n".mysql_error());
+	   while ($auerow = mysql_fetch_assoc($aue2)) {
+		  $autoremail = $auerow['email'];
+   }
 	  $bodynachricht = presql($_REQUEST['body']);
 	  $sql = "INSERT INTO ".$PREFIX."_nachrichten (userFrom, userTo, subject, body, sendtime) VALUES ('".$_SESSION['id']."','".presql($_REQUEST['userTo'])."','".presql($_REQUEST['subject'])."','".$bodynachricht."', now())";
 	  $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+	  $ID = mysql_insert_id();
+$from = "From: ".$site_email."\n";
+$from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+mail(presql(trim($autoremail)), l314, "".l315." "."<br>"."<a href=\"".$site_url."/messages.php?action=box&id=".$ID."\">".$site_url."/messages.php?action=box&id=".$ID."</a>", $from);
 	  echo l51;
 		}
   }

@@ -100,7 +100,8 @@ if ($_GET['action'] == 'newpost'){
 	  $kategoriesql = "
 	  SELECT
             id,
-            title
+            title,
+            autor_id
         FROM
             ".$PREFIX."_topics
 	    WHERE id  = '".presql($_GET['topicid'])."'
@@ -112,6 +113,17 @@ if ($_GET['action'] == 'newpost'){
     while ($kategorierow = mysql_fetch_assoc($kategorie2)) {
 	$kategorie = $kategorierow['title'];
 	$kategorieid = $kategorierow['id'];
+		  $auesql = "
+	  SELECT
+            email
+        FROM
+            ".$PREFIX."_user
+	    WHERE id  = '".presql($kategorierow['autor_id'])."'
+	  ";
+	   $aue2 = mysql_query($auesql) OR die("<pre>\n".$auesql."</pre>\n".mysql_error());
+	   while ($auerow = mysql_fetch_assoc($aue2)) {
+		  $autoremail = $auerow['email'];
+   }
 	}
   if(isset($_POST['submit']) AND $_POST['submit'] == l150) {
     	if(isset($_SESSION['id']))
@@ -124,6 +136,10 @@ if ($_GET['action'] == 'newpost'){
 	  $bodynachricht = presql($_REQUEST['body']);
 	  $sql2 = "INSERT INTO ".$PREFIX."_posts (autor_id, topic_id, title, date, post) VALUES ('".$_SESSION['id']."','".presql($_GET['topicid'])."','".presql($_REQUEST['titel'])."', now(),'".$bodynachricht."')";
 	  $result2 = mysql_query($sql2) OR die("<pre>\n".$sql2."</pre>\n".mysql_error());
+	  $ID = mysql_insert_id();
+$from = "From: ".$site_email."\n";
+$from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+mail(presql(trim($autoremail)), l312, "".l313." "."<br>"."<a href=\"".$site_url."/topic.php?id=".presql($_GET['topicid'])."#".$ID."\">".$site_url."/topic.php?id=".presql($_GET['topicid'])."#".$ID."</a>", $from);
 	  echo l153;
 	  header("Location: topic.php?id=".nocss($_GET['topicid'])."");
 		}

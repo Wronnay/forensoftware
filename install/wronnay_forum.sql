@@ -33,7 +33,9 @@ INSERT INTO `$PREFIX_data` (`id`, `name`, `url`, `text`, `date`, `active`, `lang
 (22, 'referrer', 'none', 'yes', NOW(), 0, 'en'),
 (23, 'description', 'none', 'Ein tolles neues Forum.', NOW(), 0, 'en'),
 (24, 'keywords', 'none', 'Support Forum, forum, foren, board', NOW(), 0, 'en'),
-(25, 'design', 'colors/blue.css.php', 'none', NOW(), 0, 'en');
+(25, 'design', 'colors/blue.css.php', 'none', NOW(), 0, 'en'),
+(26, 'email', 'noreply@example.com', 'none', '2013-11-08 00:00:00', 0, 'en'),
+(27, 'email_act', 'none', 'none', '2013-11-08 00:00:00', 0, 'en');
 
 CREATE TABLE IF NOT EXISTS `$PREFIX_icons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -115,5 +117,19 @@ CREATE TABLE IF NOT EXISTS `$PREFIX_user` (
   `messages` int(11) NOT NULL,
   `answers` int(11) NOT NULL,
   `lang` varchar(220) NOT NULL,
+  `act_code` VARCHAR(10) NOT NULL,
+  `act` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `$PREFIX_counter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `number` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `$PREFIX_online` (
+  `ip` varchar(220) DEFAULT NULL,
+  `date` datetime DEFAULT NULL
 );

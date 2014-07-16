@@ -277,5 +277,43 @@ $site_keywords = nocss($row1['text']);
     while ($row1 = mysql_fetch_assoc($result1)) {
 $site_design = nocss($row1['url']);
     }
-$version = '0.6';
+	    $sql1 = "SELECT
+            id,
+            name,
+			url,
+			text,
+			date,
+			active
+        FROM
+            ".$PREFIX."_data
+        WHERE
+		    active = '0'
+		AND
+		    name = 'email'
+		";
+    $result1 = mysql_query($sql1) OR die("<pre>\n".$sql1."</pre>\n".mysql_error());
+			if (mysql_num_rows($result1) == 0) {
+	}
+    while ($row1 = mysql_fetch_assoc($result1)) {
+$site_email = nocss($row1['url']);
+    }
+	    $sql1 = "SELECT
+            id,
+            name,
+			url,
+			text,
+			date,
+			active
+        FROM
+            ".$PREFIX."_data
+        WHERE
+		    name = 'email_act'
+		";
+    $result1 = mysql_query($sql1) OR die("<pre>\n".$sql1."</pre>\n".mysql_error());
+			if (mysql_num_rows($result1) == 0) {
+	}
+    while ($row1 = mysql_fetch_assoc($result1)) {
+$site_user_act = nocss($row1['active']);
+    }
+$version = '0.7';
 ?>

@@ -8,6 +8,7 @@ include 'design/header.php';
 	  echo"<div class=\"fehler\">You are an SPAM-Bot!</div>";
 	  }
   else {
+	  $act_code = rand(1, 99999999);
         $errors = array();
             $nicknames = array();
             $emails = array();
@@ -70,20 +71,31 @@ include 'design/header.php';
                              password,
                              registerdate,
                              email,
-                             show_email
+                             show_email,
+                             act_code,
+                             act
                             )
                     VALUES
                             ('".presql(trim($_POST['Username']))."',
                              '".md5(trim($_POST['Password']))."',
                              now(),
                              '".presql(trim($_POST['hallo']))."',
-                             '".presql(trim($_POST['Show_Email']))."'
+                             '".presql(trim($_POST['Show_Email']))."',
+                             '".$act_code."',
+                             'no'
                             )
                    ";
             mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            echo "<div class=\"erfolg\">".l144."\n<br>".
+ $ID = mysql_insert_id();
+ $from = "From: ".$site_email."\n";
+ $from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+  if($site_user_act == '1') { mail(presql(trim($_POST['hallo'])), "".w141." - ".$site_title."", "".w142.":"."<br>"."<a href=\"".$site_url."/act.php?id=$ID&act_code=$act_code\">".$site_url."/act.php?id=$ID&act_code=$act_code</a>", $from); }
+  echo "<div class=\"erfolg\">".l144."\n<br>".
                  "".l145."\n<br>".
-                 "".l146."\n<br></div>";
+                 "".l146."\n<br>".
+                 "";
+if($site_user_act == '1') {echo "".w130."</div>";}
+else {echo "</div>";}
         }
     }
 	}

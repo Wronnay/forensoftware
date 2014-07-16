@@ -309,4 +309,22 @@ define('l34', 'This work and content is licensed under a Creative Commons Attrib
 define('l35', 'You may not remove the links to Celzekr.webpage4.me and Scripts.Wronnay.net not! <br> If you only use parts of this script, you must put a link to http://scripts.wronnay.net/!'); 
 define('l310', 'written on'); 
 define('l311', 'Table prefix');
+define('w85', 'Visitors'); 
+define('w86', 'Now'); 
+define('w87', 'Today'); 
+define('w88', 'Yesterday'); 
+define('w89', 'Overall'); 
+define('w130', 'To complete registration, go to your email inbox and click the activation link.');
+define('w132', 'Activation by E-mail');
+define('w133', 'Server E-Mail');
+define('w139', 'Your account has been activated!');
+define('w140', 'Account activation');
+define('w141', 'Account activation');
+define('w142', 'Hello, to complete the registration process, click on the following link');
+define('l312', 'New Post in your topic');
+define('l313', 'Hello, someone has written a new post on your topic:');
+define('l314', 'New message');
+define('l315', 'Hello, You have received a new message:');
+define('l316', 'Password changed');
+define('l317', 'Your password has been changed. Click on the following link to get a new one.');
 ?> 
