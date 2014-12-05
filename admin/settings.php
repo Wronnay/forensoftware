@@ -8,7 +8,8 @@
                         WHERE
                                 name = 'design'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
                 $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -19,8 +20,9 @@
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-if (mysql_real_escape_string(trim($_POST['show_headtitle'])) == 1) {$show_headtitle1 = 0;}
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
+if (presql(trim($_POST['show_headtitle'])) == 1) {$show_headtitle1 = 0;}
 else {$show_headtitle1 = 1;}
                 $sql = "UPDATE
                                 ".$PREFIX."_data
@@ -33,8 +35,9 @@ else {$show_headtitle1 = 1;}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());				
-	$url = mysql_real_escape_string($_POST["url"]);
+                $dbpre = $dbc->prepare($sql);		
+                $dbpre->execute();		
+	$url = presql($_POST["url"]);
 	$url_website = ( substr($url, 0, 7) != 'http://' ? 'http://'.$url : $url );  
                 $sql = "UPDATE
                                 ".$PREFIX."_data
@@ -43,8 +46,9 @@ else {$show_headtitle1 = 1;}
                         WHERE
                                 name = 'url'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-if (mysql_real_escape_string(trim($_POST['show_subtitle'])) == 1) {$show_subtitle1 = 0;}
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
+if (presql(trim($_POST['show_subtitle'])) == 1) {$show_subtitle1 = 0;}
 else {$show_subtitle1 = 1;}
                 $sql = "UPDATE
                                 ".$PREFIX."_data
@@ -57,8 +61,9 @@ else {$show_subtitle1 = 1;}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-if (mysql_real_escape_string(trim($_POST['show_logo'])) == 1) {$show_logo1 = 0;}
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
+if (presql(trim($_POST['show_logo'])) == 1) {$show_logo1 = 0;}
 else {$show_logo1 = 1;}
                 $sql = "UPDATE
                                 ".$PREFIX."_data
@@ -71,8 +76,9 @@ else {$show_logo1 = 1;}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());	
-if (mysql_real_escape_string(trim($_POST['referrer'])) == 1) {$referrer1 = 'yes';}
+                $dbpre = $dbc->prepare($sql);	
+                $dbpre->execute();
+if (presql(trim($_POST['referrer'])) == 1) {$referrer1 = 'yes';}
 else {$referrer1 = 'none';}
                 $sql = "UPDATE
                                 ".$PREFIX."_data
@@ -81,7 +87,8 @@ else {$referrer1 = 'none';}
                         WHERE
                                 name = 'referrer'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());		
+                $dbpre = $dbc->prepare($sql);		
+                $dbpre->execute();
                 $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -92,7 +99,8 @@ else {$referrer1 = 'none';}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());	
+                $dbpre = $dbc->prepare($sql);	
+                $dbpre->execute();
               $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -103,7 +111,8 @@ else {$referrer1 = 'none';}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());			
+                $dbpre = $dbc->prepare($sql);		
+                $dbpre->execute();	
               $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -114,7 +123,8 @@ else {$referrer1 = 'none';}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());	
+                $dbpre = $dbc->prepare($sql);	
+                $dbpre->execute();
               $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -125,7 +135,8 @@ else {$referrer1 = 'none';}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());		
+                $dbpre = $dbc->prepare($sql);		
+                $dbpre->execute();
               $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -136,7 +147,8 @@ else {$referrer1 = 'none';}
                         AND
                                 lang = '".$_SESSION['lang']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());	
+                $dbpre = $dbc->prepare($sql);	
+                $dbpre->execute();
                $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -144,7 +156,8 @@ else {$referrer1 = 'none';}
                         WHERE
                                 name = 'email_act'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
                 $sql = "UPDATE
                                 ".$PREFIX."_data
                         SET
@@ -152,7 +165,8 @@ else {$referrer1 = 'none';}
                         WHERE
                                 name = 'email'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());						
+                $dbpre = $dbc->prepare($sql);	
+                $dbpre->execute();					
 				
                 echo l228.
                      "\n";

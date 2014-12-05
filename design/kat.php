@@ -15,16 +15,19 @@
         ORDER BY
             id
 		";
-    $result2 = mysql_query($sql2) OR die("<pre>\n".$sql2."</pre>\n".mysql_error());
-			if (mysql_num_rows($result2) == 0) {
+    $result2 = $dbc->prepare($sql2);
+    $result2->execute();
+	if ($result2->rowCount() < 1) {
 	    echo l273;
 	}
-    while ($row2 = mysql_fetch_assoc($result2)) {
-	$last_post2 = mysql_query("SELECT id, autor_id, title, date FROM ".$PREFIX."_topics WHERE kat2_id = '".$row2['id']."' ORDER BY date DESC LIMIT 1");
-	while ($last_post = mysql_fetch_assoc($last_post2)) {
- $a = "SELECT username FROM ".$PREFIX."_user WHERE id=".$last_post['autor_id'].";";
- $a_result = mysql_query($a) OR die("<pre>\n".$a."</pre>\n".mysql_error());
-    while ($au = mysql_fetch_assoc($a_result)) {
+    while ($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {
+	$last_post2 = $dbc->prepare("SELECT id, autor_id, title, date FROM ".$PREFIX."_topics WHERE kat2_id = '".nocss($row2['id'])."' ORDER BY date DESC LIMIT 1");
+	$last_post2->execute();
+	while ($last_post = $last_post2->fetch(PDO::FETCH_ASSOC)) {
+ $a = "SELECT username FROM ".$PREFIX."_user WHERE id=".nocss($last_post['autor_id']).";";
+ $a_result = $dbc->prepare($a);
+ $a_result->execute();
+    while ($au = $a_result->fetch(PDO::FETCH_ASSOC)) {
 	$lastpostuser = nocss($au['username']);
 	}
 	$lastpostid = nocss($last_post['autor_id']);
@@ -32,13 +35,15 @@
 	$lastposttitle = nocss($last_post['title']);
 	$lastposttitleid = nocss($last_post['id']);
 	}
-	$topics = mysql_num_rows(mysql_query("SELECT id FROM ".$PREFIX."_topics WHERE kat2_id = '".$row2['id']."'"));
+	$dbpreka = $dbc->prepare("SELECT id FROM ".$PREFIX."_topics WHERE kat2_id = '".nocss($row2['id'])."'");
+	$dbpreka->execute();
+	$topics = $dbpreka->rowCount();
 ?>
 <div class="kat2">
 <div class="infos2">
 <div class="lastpost2">
 <?php
-if (mysql_num_rows($last_post2) == 0) {
+if ($last_post2->rowCount() < 1) {
 echo l309;
 	}
 else {

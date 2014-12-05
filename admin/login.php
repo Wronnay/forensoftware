@@ -3,8 +3,8 @@ error_reporting(0);
 ob_start();
 @session_start();
 include '../inc/config.php';
-mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
 include '../inc/functions.php';
 include '../inc/data.php';
 ini_set("session.gc_maxlifetime", 2000);
@@ -70,9 +70,10 @@ switch($_GET["admin"]){
 				AND
 				        rang = 'Admin'
                ";
-        $result22 = mysql_query($sql22) OR die("<pre>\n".$sql22."</pre>\n".mysql_error());
-        $row22 = mysql_fetch_assoc($result22);
-		if (mysql_num_rows($result22)==1){
+        $dbpre = $dbc->prepare($sql22);
+        $dbpre->execute();
+        $row22 = $dbpre->fetch(PDO::FETCH_ASSOC);
+		if ($dbpre->rowCount()==1){
 			$_SESSION["ADMINid"] = $row22['id'];
 			header("Location: index.php");
 		}

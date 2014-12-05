@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
 Forum Software by Christoph Miksche
-Copyright 2012, 2013 Christoph Daniel Miksche
+Copyright 2012, 2013, 2014 Christoph Daniel Miksche
 Website: Scripts.Wronnay.net
 License: GNU General Public License
 -->

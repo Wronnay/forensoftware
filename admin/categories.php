@@ -3,34 +3,28 @@
 <?php
 echo '<p>';
 	if (isset($_POST['submit'])){
-
-        $sql = "INSERT INTO ".$PREFIX."_kat1 (name, lang) VALUES ('".presql($_REQUEST['catname'])."', '".$_SESSION['lang']."')";
-
-	mysql_query($sql);
-
-	if(mysql_affected_rows() == 1) {
-	
-        echo l169;
-  	 
+    $sql = "INSERT INTO ".$PREFIX."_kat1 (name, lang) VALUES ('".presql($_REQUEST['catname'])."', '".$_SESSION['lang']."')";
+	$dbpre = $dbc->prepare($sql);
+	$dbpre->execute();
+	if($dbpre->rowCount() == 1) {
+    echo l169; 
 	 } 
         else{
-	 
         echo l170;
      	}
 	 }
-
-
     $sql = "SELECT
 	                id,
                         name
             FROM
                     ".$PREFIX."_kat1
            ";
-    $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-			if (mysql_num_rows($result) == 0) {
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+	if ($dbpre->rowCount() < 1) {
 	    echo l171;
 	}
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <a href="index.php?admin=categories&id=<?php echo nocss($row['id']); ?>"><img title="<?php echo l62; ?>" src="../images/icons/standard/close2r.png" alt="" /></a>
 <?php echo nocss($row['name']); ?> (<b>ID</b>: <?php echo nocss($row['id']); ?>)<br>
@@ -45,24 +39,18 @@ echo '<p>';
 <div class="title"><?php echo l172; ?>:</div>
 <p>
 <?php	
-
     $catid = presql($_GET['id']);
-     
     $query = "DELETE
                           FROM
 				 ".$PREFIX."_kat1
 			  WHERE
 				 id = '".$catid."'";
-    
-	$result = mysql_query($query);
-     
-    if($result) {
-	
+	$dbpre = $dbc->prepare($query);
+	$dbpre->execute();
+    if($dbpre) {
     echo l173;
-    
 	}
 	else{
-	
     echo l174;
     }
 ?>
@@ -77,20 +65,15 @@ echo '<p>';
 <input name="catname" class="li" type="text" size="40" /> <input name="submit" class="lb" type="submit" value="<?php echo l175; ?>" />
 </form>
 </div>
-
- 
 <div style="clear:both; float:left;"> <!-- class="spalte" -->
 <div class="title"><?php echo l176; ?>:</div>
 <?php
 echo '<p>';
 	if (isset($_POST['submit2'])){
-
         $sql = "INSERT INTO ".$PREFIX."_kat2 (name, kat1_id, beschreibung, lang) VALUES ('".presql($_REQUEST['cat2name'])."', '".presql($_REQUEST['kat1_id'])."', '".presql($_REQUEST['beschreibung'])."', '".$_SESSION['lang']."')";
-
-	mysql_query($sql);
-
-	if(mysql_affected_rows() == 1) {
-	
+	$dbpre = $dbc->prepare($sql);
+	$dbpre->execute();
+	if($dbpre->rowCount() == 1) {
         echo l169;
   	 
 	 } 
@@ -99,8 +82,6 @@ echo '<p>';
         echo l170;
      	}
 	 }
-
-
     $sql = "SELECT
 	                id,
                         name,
@@ -109,11 +90,12 @@ echo '<p>';
             FROM
                     ".$PREFIX."_kat2
            ";
-    $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-			if (mysql_num_rows($result) == 0) {
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+	if ($dbpre->rowCount() < 1) {
 	    echo l177;
 	}
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <a href="index.php?admin=categories&id2=<?php echo nocss($row['id']); ?>"><img title="<?php echo l62; ?>" src="../images/icons/standard/close2r.png" alt="" /></a>
 <b><?php echo nocss($row['name']); ?></b><br>
@@ -129,24 +111,18 @@ echo '<p>';
 <div class="title"><?php echo l178; ?>:</div>
 <p>
 <?php	
-
-    $catid2 = mysql_real_escape_string($_GET['id2']);
-     
+    $catid2 = $_GET['id2'];
     $query = "DELETE
                           FROM
 				 ".$PREFIX."_kat2
 			  WHERE
 				 id = '" . presql($catid2) . "'";
-    
-	$result = mysql_query($query);
-     
-    if($result) {
-	
+	$dbpre = $dbc->prepare($query);
+	$dbpre->execute();
+    if($dbpre) {
     echo l179;
-    
 	}
 	else{
-	
     echo l180;
     }
 ?>

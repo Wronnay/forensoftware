@@ -4,8 +4,8 @@ ob_start();
 @session_start();
 include 'check.php';
 include '../inc/config.php';
-mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
 include '../inc/functions.php';
 include '../inc/data.php';
 ini_set("session.gc_maxlifetime", 2000);
@@ -38,7 +38,7 @@ include '../lang/en/1.php';
 <html>
  <head>
  <title><?php echo l197; ?> | ForenSoftware by WronnayScripts</title>
-<meta charset="ISO-8859-1"><link rel="shortcut icon" href="../images/system/favicon.ico">
+<meta charset="UTF-8"><link rel="shortcut icon" href="../images/system/favicon.ico">
 <link rel="stylesheet" type="text/css" href="../design/system/admin.css">
 <?php
 include '../inc/showbbc.php';
@@ -65,8 +65,9 @@ switch($_GET["admin"]){
             WHERE
                 DATE_SUB(NOW(), INTERVAL 2 MINUTE) < date
            ";
-    $result = mysql_query($sql);
-    $user_now = mysql_result($result, 0);
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+    $user_now = $dbpre->fetchColumn();
     $sql = "SELECT
                 number
             FROM
@@ -74,8 +75,9 @@ switch($_GET["admin"]){
             WHERE
                 date = CURDATE()
            ";
-    $result = mysql_query($sql);
-    $row = mysql_fetch_assoc($result);
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+    $row = $dbpre->fetch(PDO::FETCH_ASSOC);
     $user_heute = $row['number']; 
     $sql = "SELECT
                 number
@@ -84,16 +86,18 @@ switch($_GET["admin"]){
             WHERE
                 date = DATE_SUB(CURDATE(), INTERVAL 1 DAY)  
            ";
-    $result = mysql_query($sql);
-    $row = mysql_fetch_assoc($result);
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+    $row = $dbpre->fetch(PDO::FETCH_ASSOC);
     $user_gestern = $row['number']; 
     $sql = "SELECT
                 SUM(number)
             FROM
                 ".$PREFIX."_counter
            ";
-    $result = mysql_query($sql);
-    $user_gesamt = mysql_result($result, 0); 
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+    $user_gesamt = $dbpre->fetchColumn(); 
     echo " <table cellpadding=\"2\" style=\"margin-bottom:10px;\">\n".
          "  <tr><td>".w86."</td><td style=\"text-align:right;\">".$user_now."</td></tr>\n".
          "  <tr><td>".w87."</td><td style=\"text-align:right;\">".$user_heute."</td></tr>\n".
@@ -107,8 +111,8 @@ switch($_GET["admin"]){
 <div class="title"><?php echo l207; ?></div>
 <p><?php echo l208; ?></p>
 <div class="title"><img src="../images/system/logo.png" alt="ForenSoftware:"></div>
-<p><b><?php echo l209; ?>:</b> <?php echo $version; ?><br>
-<script src="http://scripts.wronnay.net/fs/update.php?lang=<?php echo $_SESSION['lang']; ?>&version=<?php echo $version; ?>" type="text/javascript"></script>
+<p><b><?php echo l209; ?>:</b> <?php echo nocss($version); ?><br>
+<script src="http://scripts.wronnay.net/fs/update.php?lang=<?php echo nocss($_SESSION['lang']); ?>&version=<?php echo nocss($version); ?>" type="text/javascript"></script>
 </p>
 </article>
 <?php

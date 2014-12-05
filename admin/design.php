@@ -10,11 +10,12 @@
             FROM
                     ".$PREFIX."_designs
            ";
-    $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-			if (mysql_num_rows($result) == 0) {
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+	if ($dbpre->rowCount() < 1) {
 	    echo l187;
 	}
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <div class="design">
 <a href="index.php?admin=designs&id=<?php echo nocss($row['id']); ?>"><img title="<?php echo l62; ?>" src="../images/icons/standard/close2r.png" alt="" /></a> <?php echo nocss($row['name']); ?><br>
@@ -30,24 +31,18 @@
 <div class="title" style="clear:both;"><?php echo l190; ?>:</div>
 <p>
 <?php	
-
     $catid = presql($_GET['id']);
-     
     $query = "DELETE
                           FROM
 				 ".$PREFIX."_designs
 			  WHERE
 				 id = '" .$catid. "'";
-    
-	$result = mysql_query($query);
-     
-    if($result) {
-	
+	$dbpre = $dbc->prepare($query);
+	$dbpre->execute();
+    if($dbpre) {
     echo l191;
-    
 	}
 	else{
-	
     echo l192;
     }
 ?>
@@ -61,25 +56,19 @@
 <div class="title" style="clear:both;"><?php echo l193; ?>:</div>
 <p>
 <?php	
-
     $make = presql($_GET['make']);
-     
     $query = "UPDATE
                                 ".$PREFIX."_data
                         SET
 				url =  '".$make."'
                         WHERE
                                 name = 'design'";
-    
-	$result = mysql_query($query);
-     
-    if($result) {
-	
+	$dbpre = $dbc->prepare($query);
+	$dbpre->execute();
+    if($dbpre) {
     echo l194;
-    
 	}
 	else{
-	
     echo l195;
     }
 ?>

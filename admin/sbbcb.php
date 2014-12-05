@@ -2,8 +2,9 @@
  <div id="smilies2">
 <?php
 $smiliesql = "SELECT id, title, url, color FROM ".$PREFIX."_smilies WHERE color='green'";
-$smilies_result = mysql_query($smiliesql) OR die("<pre>\n".$smiliesql."</pre>\n".mysql_error());
-    while ($smilieu = mysql_fetch_assoc($smilies_result)) {
+$dbpre = $dbc->prepare($smiliesql);
+$dbpre->execute();
+    while ($smilieu = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 echo "<img src=\"../images/smilies/".$smilieu['color']."/".$smilieu['url']."\" onclick=\"insertText(' ".$smilieu['title']." ','')\" alt=\"".$smilieu['title']."\" title=\"".$smilieu['title']."\" /> ";
 	}
 ?>

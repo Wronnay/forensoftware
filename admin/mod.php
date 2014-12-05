@@ -1,11 +1,9 @@
 <div class="title"><?php echo l215; ?>:</div>
 <p>
 <?php
-	
 	if (isset($_POST['user_name'])){
 	$_POST = get_magic_quotes_gpc() ? array_map( 'stripslashes', $_POST ) : $_POST;
-	$username = $_POST['user_name'];
-
+	$username = nocss($_POST['user_name']);
 	$sql = "UPDATE
 				".$PREFIX."_user
 			SET
@@ -15,33 +13,32 @@
                         AND
                                 rang = ''
 ";
-
-	mysql_query($sql);
-
-	if(mysql_affected_rows() == 1) {
-	
+	$dbpre = $dbc->prepare($sql);
+	$dbpre->execute();
+	if($dbpre->rowCount() == 1) {
         echo '<p class="erfolg"><u>' . nocss($username) . '</u> '.l216.'</p>';
-  	 
 	 }else{
-	 
         echo l217;
      	}
 	 }
-
 ?>
 <form action="index.php?admin=mod&user_name" method="post" name="user_name">
 <input name="user_name" class="li" type="text" size="40" /> <input name="submit" class="lb" type="submit" value="<?php echo l218; ?>" />
 </form>
 </p>
-<div class="title"><?php echo l219; ?> (<?php $bword = mysql_query("SELECT id FROM ".$PREFIX."_user WHERE rang = 'Moderator'"); 
-											  	  $allwords = mysql_num_rows($bword); 
-											  	  echo $allwords; ?>):</div>
+<div class="title"><?php echo l219; ?> (
+<?php 
+$bword = $dbc->prepare("SELECT id FROM ".$PREFIX."_user WHERE rang = 'Moderator'"); 
+$bword->execute();
+$allwords = $bword->rowCount(); 
+echo $allwords; 
+?>):</div>
 	<p>
 <?php   
    $query1 = "SELECT id, username FROM ".$PREFIX."_user WHERE rang = 'Moderator'"; 
-   $result1 = mysql_query($query1);
-
-   if($result1) {
+   $dbpre = $dbc->prepare($query1);
+   $dbpre->execute();
+   if($dbpre) {
    echo '<table width="100%" class="maintable">
    		 <tr>
     	 <td width="5%"><strong>ID</strong></td>
@@ -50,7 +47,7 @@
    		 </tr>
    		 </table>';
 
-   while($row1 = mysql_fetch_array($result1)) {
+   while($row1 = $dbpre->fetch(PDO::FETCH_ASSOC)) {
    echo '<table width="100%" class="maintable">
    		 <tr>
     	 <td width="5%"><strong>' . nocss($row1['id']) . '</strong></td>
@@ -72,25 +69,19 @@
 <div class="title"><?php echo l306; ?>:</div>
 <p>
 <?php	
-
     $user_id = presql($_GET['user_id']);
-     
     $query = "UPDATE
 				 ".$PREFIX."_user
 			  SET
 				 rang = ''
 			  WHERE
 				 id = '" . $user_id . "'";
-    
-	$result = mysql_query($query);
-     
+	$dbpre = $dbc->prepare($query);
+	$dbpre->execute();
     if($result) {
-	
     echo l307;
-    
 	}
 	else{
-	
     echo l308;
     }
 ?>

@@ -1,18 +1,23 @@
 <?php
-	$posts2 = mysql_num_rows(mysql_query("SELECT id FROM ".$PREFIX."_posts WHERE topic_id = '".$row['id']."'"));
+	$dbpre = $dbc->prepare("SELECT id FROM ".$PREFIX."_posts WHERE topic_id = '".$row['id']."'");
+	$dbpre->execute();
+	$posts2 = $dbpre->rowCount();
 	$posts = $posts2 - 1;
-	$last_post2 = mysql_query("SELECT autor_id, date FROM ".$PREFIX."_posts WHERE topic_id = '".$row['id']."' ORDER BY date DESC LIMIT 1");
-	while ($last_post = mysql_fetch_assoc($last_post2)) {
+	$dbpre2 = $dbc->prepare("SELECT autor_id, date FROM ".$PREFIX."_posts WHERE topic_id = '".$row['id']."' ORDER BY date DESC LIMIT 1");
+	$dbpre2->execute();
+	while ($last_post = $dbpre2->fetch(PDO::FETCH_ASSOC)) {
  $a = "SELECT username FROM ".$PREFIX."_user WHERE id=".$last_post['autor_id'].";";
- $a_result = mysql_query($a) OR die("<pre>\n".$a."</pre>\n".mysql_error());
-    while ($au = mysql_fetch_assoc($a_result)) {
+ $dbpre3 = $dbc->prepare($a);
+ $dbpre3->execute();
+    while ($au = $dbpre3->fetch(PDO::FETCH_ASSOC)) {
 	$lastpostuser = nocss($au['username']);
 	}
 	$lastpostid = nocss($last_post['autor_id']);
 	$lastpostdate = nocss($last_post['date']);
 	}
-	$abfrage = mysql_query("SELECT username FROM ".$PREFIX."_user WHERE id = '".$row['autor_id']."'");
-	$autor = mysql_fetch_assoc($abfrage);
+	$dbpre4 = $dbc->prepare("SELECT username FROM ".$PREFIX."_user WHERE id = '".$row['autor_id']."'");
+	$dbpre4->execute();
+	$autor = $dbpre4->fetch(PDO::FETCH_ASSOC);
 ?>
 <div class="kat2">
 <div class="infos2"><div class="lastpost2"><?php echo l274; ?>: <a href="user.php?id=<?php echo $lastpostid; ?>"><?php echo $lastpostuser; ?></a> <?php echo l275; ?>: <?php echo $lastpostdate; ?></div><div class="posts2"><a href="user.php?id=<?php echo "".nocss($row['autor_id'])."" ?>"><?php echo "".nocss($autor['username'])."" ?></a></div><div class="topics2"><?php echo "".nocss($posts)."" ?></div></div>
