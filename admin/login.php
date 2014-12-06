@@ -37,7 +37,7 @@ include '../lang/en/1.php';
 <html>
  <head>
  <title><?php echo l197; ?> | ForenSoftware by WronnayScripts</title>
-<meta charset="ISO-8859-1"><link rel="shortcut icon" href="../images/system/favicon.ico">
+<meta charset="UTF-8"><link rel="shortcut icon" href="../images/system/favicon.ico">
 <link rel="stylesheet" type="text/css" href="../design/system/login.css">
  </head>
  <body>

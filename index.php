@@ -14,12 +14,13 @@ include base64_decode('ZGVzaWduL2hlYWRlci5waHA=');
         ORDER BY
             id
 		";
-    $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-			if (mysql_num_rows($result) == 0) {
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+	if ($dbpre->rowCount() < 1) {
 header("Location: admin/index.php");
 	    echo l2;
 	}
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 include base64_decode('ZGVzaWduL2thdC5waHA=');
     }
 include base64_decode('ZGVzaWduL2Zvb3Rlci5waHA=');

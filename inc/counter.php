@@ -7,29 +7,33 @@ $ip = md5($_SERVER['REMOTE_ADDR'].'wyfs');
             WHERE
                 date = CURDATE()
            ";
-    $result = mysql_query($sql);
-    if(!mysql_num_rows($result)){
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+    if($dbpre->rowCount() < 1){
         $sql = "INSERT INTO
                     ".$PREFIX."_counter
                  SET
                     date = CURDATE()
                 ";
-        mysql_query($sql);
+       $dbpre = $dbc->prepare($sql);
+       $dbpre->execute();
     }
     $sql = "DELETE FROM
                         ".$PREFIX."_online
             WHERE
                         DATE_SUB(NOW(), INTERVAL 1 DAY) > date
            ";
-    mysql_query($sql);
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
     $sql = "SELECT
                         ip
             FROM
                         ".$PREFIX."_online
             Where
                         ip = '".$ip."'";
-    $result = mysql_query($sql);
-    if (!mysql_num_rows($result)){
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+    if ($dbpre->rowCount() < 1){
         $sql = "INSERT INTO
                             ".$PREFIX."_online
                             (ip,
@@ -39,7 +43,8 @@ $ip = md5($_SERVER['REMOTE_ADDR'].'wyfs');
                             NOW()
                             )
                ";
-        mysql_query($sql);
+        $dbpre = $dbc->prepare($sql);
+        $dbpre->execute();
 
         $sql = "UPDATE
                     ".$PREFIX."_counter
@@ -48,7 +53,8 @@ $ip = md5($_SERVER['REMOTE_ADDR'].'wyfs');
                 WHERE
                     date = CURDATE()
                ";
-        mysql_query($sql);
+        $dbpre = $dbc->prepare($sql);
+        $dbpre->execute();
     }
     else {
         $sql = "UPDATE
@@ -58,6 +64,7 @@ $ip = md5($_SERVER['REMOTE_ADDR'].'wyfs');
                 WHERE
                             ip = '".$ip."'
                ";
-        mysql_query($sql);
+        $dbpre = $dbc->prepare($sql);
+        $dbpre->execute();
     }
 ?>

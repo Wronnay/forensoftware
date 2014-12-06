@@ -1,5 +1,5 @@
 <?php
-header('content-type: text/html; charset=ISO-8859-1');
+header('content-type: text/html; charset=UTF-8');
 error_reporting(0);
 ob_start();
 ini_set("session.gc_maxlifetime", 2000);
@@ -27,12 +27,20 @@ include '../lang/de/1.php';
   {
 include '../lang/en/1.php';
   }
+ function nocss($nocss) {
+  $nocss = strip_tags($nocss);
+  $nocss = htmlspecialchars($nocss, ENT_QUOTES, "UTF-8");
+  return $nocss;
+}
+function presql($presql) {
+  return $presql;
+}
 ?>
 <!DOCTYPE HTML>
 <html>
  <head>
  <title><?php echo l277; ?> | ForenSoftware</title>
-<meta charset="ISO-8859-1" />
+<meta charset="UTF-8" />
 <link rel="stylesheet" type="text/css" href="../design/system/install.css">
  </head>
  <body>
@@ -82,18 +90,21 @@ else {
       ?>";
       fwrite($fp,$daten);
 include("../inc/config.php");
-      mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-      mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO('mysql:host='.$HOST.'', ''.$USER.'', ''.$PW.'');   	
+	$dbpre = $dbc->prepare("CREATE DATABASE IF NOT EXISTS ".$DB.";");
+	$dbpre->execute();
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
    $import = file_get_contents("wronnay_forum.sql");
    $import = preg_replace ("%/\*(.*)\*/%Us", '', $import);
    $import = preg_replace ("%^--(.*)\n%mU", '', $import);
    $import = preg_replace ("%^$\n%mU", '', $import);
    $import = str_replace('$PREFIX', $PREFIX, $import);
-   mysql_real_escape_string($import); 
    $import = explode (";", $import); 
    foreach ($import as $imp){
     if ($imp != '' && $imp != ' '){
-     mysql_query($imp);
+     $dbpre = $dbc->prepare($imp);
+     $dbpre->execute();
     }
    }  
    $import = file_get_contents("wronnay_forum_designs.sql");
@@ -101,11 +112,11 @@ include("../inc/config.php");
    $import = preg_replace ("%^--(.*)\n%mU", '', $import);
    $import = preg_replace ("%^$\n%mU", '', $import);
    $import = str_replace('$PREFIX', $PREFIX, $import);
-   mysql_real_escape_string($import); 
    $import = explode (";", $import); 
    foreach ($import as $imp){
     if ($imp != '' && $imp != ' '){
-     mysql_query($imp);
+     $dbpre = $dbc->prepare($imp);
+     $dbpre->execute();
     }
    }  
    $import = file_get_contents("wronnay_forum_smilies.sql");
@@ -113,15 +124,18 @@ include("../inc/config.php");
    $import = preg_replace ("%^--(.*)\n%mU", '', $import);
    $import = preg_replace ("%^$\n%mU", '', $import);
    $import = str_replace('$PREFIX', $PREFIX, $import);
-   mysql_real_escape_string($import); 
    $import = explode (";", $import); 
    foreach ($import as $imp){
     if ($imp != '' && $imp != ' '){
-     mysql_query($imp);
+     $dbpre = $dbc->prepare($imp);
+     $dbpre->execute();
     }
    }  
 $url12 = $_SERVER['SERVER_NAME'];
-mysql_query("INSERT INTO ".$PREFIX."_data (id, name, url, text, date, active) VALUES ('8', 'url', '".$url12."', 'none', now(), '0')");
+$dbpre = $dbc->prepare("INSERT INTO ".$PREFIX."_data (id, name, url, text, date, active) VALUES ('8', 'url', '".$url12."', 'none', now(), '0')");
+$dbpre->execute();
+$dbpre = $dbc->prepare("INSERT INTO ".$PREFIX."_data (id, name, url, text, date, active) VALUES ('28', 'version', 'none', '0.8', now(), '0')");
+$dbpre->execute();
 header("Location: ?install=3");
 }
   break;
@@ -165,23 +179,10 @@ header("Location: ?install=3");
   break;
  case "3-1":
 include("../inc/config.php");
-      mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-      mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
   if(isset($_POST['submit']) AND $_POST['submit']== l131){
         $errors = array();
-            $nicknames = array();
-            $emails = array();
-            $sql = "SELECT
-                             username,
-                             email
-                     FROM
-                             ".$PREFIX."_user
-                    ";
-            $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            while($row = mysql_fetch_assoc($result)){
-                     $nicknames[] = $row['username'];
-                     $emails[] = $row['email'];
-            }
 			if(trim($_POST['Username'])=='Username') {
 			$_POST['Username'] = '';
 			}
@@ -200,12 +201,8 @@ include("../inc/config.php");
                 $errors[]= l133;
             elseif(!preg_match('/^\w+$/', trim($_POST['Username'])))
                 $errors[]= l134;
-            elseif(in_array(trim($_POST['Username']), $nicknames))
-                $errors[]= l135;
             if(trim($_POST['hallo'])=='')
                 $errors[]= l136;
-            elseif(in_array(trim($_POST['hallo']), $emails))
-                $errors[]= l138;
             if(trim($_POST['Password'])=='')
                 $errors[]= l139;
             elseif (strlen(trim($_POST['Password'])) < 6)
@@ -231,16 +228,17 @@ include("../inc/config.php");
                              act
                             )
                     VALUES
-                            ('".mysql_real_escape_string(trim($_POST['Username']))."',
+                            ('".presql(trim($_POST['Username']))."',
                              '".md5(trim($_POST['Password']))."',
                              now(),
-                             '".mysql_real_escape_string(trim($_POST['hallo']))."',
-                             '".mysql_real_escape_string(trim($_POST['Show_Email']))."',
+                             '".presql(trim($_POST['hallo']))."',
+                             '".presql(trim($_POST['Show_Email']))."',
                              'Admin',
                              'yes'
                             )
                    ";
-            mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
 header("Location: ?install=4");
             echo "<div class=\"erfolg\">".l144."\n<br>".
                  "".l145."\n<br>".

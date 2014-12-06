@@ -27,8 +27,9 @@ echo '<h2>'.l77.':</h2>';
 		LIMIT
 		    15
 		";
-    $rResultset = mysql_query($sql) OR die(mysql_error()."<pre>".$sql."</pre>");
-      while ($aResult = mysql_fetch_array($rResultset)){
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+      while ($aResult = $dbpre->fetch(PDO::FETCH_ASSOC)){
 	  if($aResult['show_email'] == '1') {$rssemail = '<b>Email:</b> '.$aResult['email'].'<br>';}
 	  else {$rssemail = '';}
     if ($aResult['rang'] == '') {

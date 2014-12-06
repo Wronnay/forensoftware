@@ -18,8 +18,9 @@ include 'design/header.php';
                      FROM
                              ".$PREFIX."_user
                     ";
-            $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            while($row = mysql_fetch_assoc($result)){
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
+            while($row = $dbpre->fetch(PDO::FETCH_ASSOC)){
                      $nicknames[] = $row['username'];
                      $emails[] = $row['email'];
             }
@@ -87,10 +88,11 @@ else { $actmeth = 'yes'; }
                              '".$actmeth."'
                             )
                    ";
-            mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
- $ID = mysql_insert_id();
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
+ $ID = $dbc->lastInsertId();
  $from = "From: ".$site_email."\n";
- $from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+ $from .= "Content-Type: text/html; charset=UTF-8\n";
   if($site_user_act == '1') { mail(presql(trim($_POST['hallo'])), "".w141." - ".$site_title."", "".w142.":"."<br>"."<a href=\"".$site_url."/act.php?id=$ID&act_code=$act_code\">".$site_url."/act.php?id=$ID&act_code=$act_code</a>", $from); }
   echo "<div class=\"erfolg\">".l144."\n<br>".
                  "".l145."\n<br>".
@@ -105,7 +107,7 @@ else {echo "</div>";}
              " name=\"Registrieren\" ".
              " action=\"register.php\" ".
              " method=\"post\" ".
-             " accept-charset=\"ISO-8859-1\">\n";
+             " accept-charset=\"UTF-8\">\n";
 		echo '<p class="hallo"><input id="email" type="text" name="email" value="" size="60" /></p>';
         echo "<input type=\"text\" name=\"Username\" value=\"Username\" onclick=\"if(this.value && this.value==this.defaultValue)this.value=''\" size=\"20\" class=\"li\">\n";
         echo "<br>\n";

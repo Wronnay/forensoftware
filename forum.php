@@ -15,11 +15,12 @@ include 'design/header.php';
             ".$PREFIX."_kat2
 	    WHERE id  = '".presql($_GET['kat2id'])."'
 	  ";
-	   $kategorie2 = mysql_query($kategoriesql) OR die("<pre>\n".$kategoriesql."</pre>\n".mysql_error());
-			if (mysql_num_rows($kategorie2) == 0) {
+	   $dbpre = $dbc->prepare($kategoriesql);
+	   $dbpre->execute();
+	if ($dbpre->rowCount() < 1) {
 	    echo l18;
 	}
-    while ($kategorierow = mysql_fetch_assoc($kategorie2)) {
+    while ($kategorierow = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 	$kategorie = $kategorierow['name'];
 	$kategorieid = $kategorierow['id'];
 	}
@@ -41,11 +42,12 @@ include 'design/header.php';
             ".$PREFIX."_kat2
 	    WHERE id  = '".presql($_GET['kat2id'])."'
 	  ";
-	   $kategorie2 = mysql_query($kategoriesql) OR die("<pre>\n".$kategoriesql."</pre>\n".mysql_error());
-			if (mysql_num_rows($kategorie2) == 0) {
+	   $dbpre = $dbc->prepare($kategoriesql);
+	   $dbpre->execute();
+	if ($dbpre->rowCount() < 1) {
 	    echo l21;
 	}
-    while ($kategorierow = mysql_fetch_assoc($kategorie2)) {
+    while ($kategorierow = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 	$kategorie = $kategorierow['name'];
 	$kategorieid = $kategorierow['id'];
 	}		
@@ -63,11 +65,12 @@ include 'design/header.php';
 		LIMIT
 		   1
 	  ";
-	   $kategorie3 = mysql_query($kategoriesql2) OR die("<pre>\n".$kategoriesql2."</pre>\n".mysql_error());
-			if (mysql_num_rows($kategorie3) == 0) {
+	   $dbpre2 = $dbc->prepare($kategoriesql2);
+	   $dbpre2->execute();
+	if ($dbpre2->rowCount() < 1) {
 	    echo l21;
 	}
-    while ($kategorierow3 = mysql_fetch_assoc($kategorie3)) {
+    while ($kategorierow3 = $dbpre2->fetch(PDO::FETCH_ASSOC)) {
 if (empty($kategorierow3['id'])) 
 { 
 $topicsid = 1;
@@ -82,7 +85,8 @@ else {
 	}		
 	  $bodynachricht = presql($_REQUEST['body']);
 	  $sql = "INSERT INTO ".$PREFIX."_topics (id, kat2_id, autor_id, title, date) VALUES ('".$topicsid."','".$kategorieid."','".$_SESSION['id']."','".presql($_REQUEST['titel'])."', now())";
-	  $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+	  $dbpre3 = $dbc->prepare($sql);
+	  $dbpre3->execute();
 if (empty($topicsid)) 
 { 
 $topicsid = 1;
@@ -92,9 +96,10 @@ elseif ($topicsid == '0')
 $topicsid = 1;
 }
 	  $sql2 = "INSERT INTO ".$PREFIX."_posts (autor_id, topic_id, title, date, post) VALUES ('".$_SESSION['id']."','".$topicsid."','".presql($_REQUEST['titel'])."', now(),'".$bodynachricht."')";
-	  $result2 = mysql_query($sql2) OR die("<pre>\n".$sql2."</pre>\n".mysql_error());
+	  $dbpre4 = $dbc->prepare($sql2);
+	  $dbpre4->execute();
 	  echo l22;
-	  header("Location: forum.php?id=".mysql_real_escape_string($_GET['kat2id'])."");
+	  header("Location: forum.php?id=".presql($_GET['kat2id'])."");
 		}
 		}
 		else {echo l23;}
@@ -116,8 +121,9 @@ include 'inc/sbbcb.php';
 }
 }
 else {
-$result_total = mysql_query('SELECT COUNT(*) as `total` FROM `'.$PREFIX.'_topics` WHERE kat2_id = '.presql($_GET['id']).'');
-$row_total = mysql_fetch_assoc($result_total);
+$dbpre6 = $dbc->prepare('SELECT COUNT(*) as `total` FROM `'.$PREFIX.'_topics` WHERE kat2_id = '.presql($_GET['id']).'');
+$dbpre6->execute();
+$row_total = $dbpre6->fetch(PDO::FETCH_ASSOC);
 $gesamte_anzahl = $row_total['total'];
 $ergebnisse_pro_seite = 15;
 $gesamt_seiten = ceil($gesamte_anzahl/$ergebnisse_pro_seite);
@@ -155,8 +161,9 @@ $limit = ($seite*$ergebnisse_pro_seite)-$ergebnisse_pro_seite;
 		LIMIT
 		    1
 		";
-    $resulttit = mysql_query($sqltit) OR die("<pre>\n".$sqltit."</pre>\n".mysql_error());
-while ($rowtit = mysql_fetch_assoc($resulttit)) {
+    $dbpre7 = $dbc->prepare($sqltit);
+    $dbpre7->execute();
+while ($rowtit = $dbpre7->fetch(PDO::FETCH_ASSOC)) {
 $subsite_title = $rowtit['name'];
 $subsite_des = $rowtit['beschreibung'];
 }
@@ -174,11 +181,12 @@ if(isset($_SESSION['id']))
 <?php echo l31; ?>:
 </div>
 <?php
-    $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-			if (mysql_num_rows($result) == 0) {
+    $dbpre8 = $dbc->prepare($sql);
+    $dbpre8->execute();
+	if ($dbpre8->rowCount() < 1) {
 	    echo l32;
 	}
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $dbpre8->fetch(PDO::FETCH_ASSOC)) {
 include 'design/topics.php';
     }
 ?>

@@ -6,14 +6,15 @@ include 'design/header.php';
 echo '<h2>'.w140.':</h2><br>';
 if($_REQUEST['id'] && $_REQUEST['act_code'])
 {
-    $_REQUEST['id'] = mysql_real_escape_string($_REQUEST['id']);
-    $_REQUEST['act_code'] = mysql_real_escape_string($_REQUEST['act_code']);
+    $_REQUEST['id'] = presql($_REQUEST['id']);
+    $_REQUEST['act_code'] = presql($_REQUEST['act_code']);
 
-    $ResultPointer = mysql_query("SELECT id FROM ".$PREFIX."_user WHERE id = '".$_REQUEST['id']."' AND act_code = '".$_REQUEST['act_code']."'");
-
-    if(mysql_num_rows($ResultPointer) > 0)
+    $dbpre = $dbc->prepare("SELECT id FROM ".$PREFIX."_user WHERE id = '".$_REQUEST['id']."' AND act_code = '".$_REQUEST['act_code']."'");
+	$dbpre->execute();
+    if($dbpre->rowCount() > 0)
     {
-        @mysql_query("UPDATE ".$PREFIX."_user SET act = 'yes' WHERE id = '".$_REQUEST['id']."'");
+        $dbpre1 = $dbc->prepare("UPDATE ".$PREFIX."_user SET act = 'yes' WHERE id = '".$_REQUEST['id']."'");
+        $dbpre1->execute();
       echo "<div class=\"erfolg\">".w139."</div>";
     }
 }

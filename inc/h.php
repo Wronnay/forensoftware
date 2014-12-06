@@ -9,8 +9,8 @@ if (isset ($DB)) {}
 else{
 header("Location: install/index.php");
 }
-mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
 include 'inc/functions.php';
 include 'inc/counter.php';
 $_SESSION['lang'] = presql($_SESSION['lang']);

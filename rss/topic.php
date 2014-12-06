@@ -1,8 +1,8 @@
 <?php
 error_reporting(0);
 include '../inc/config.php';
-mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
 include '../inc/functions.php';
 ini_set("session.gc_maxlifetime", 2000);
 $default_lang = 'en';
@@ -32,7 +32,7 @@ include '../lang/en/1.php';
 include '../inc/data.php';
   header("Content-Type: application/rss+xml");
   
-  echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
+  echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
 ?>
   <rss version="2.0">
     <channel>
@@ -55,8 +55,9 @@ include '../inc/data.php';
         ORDER BY
             date
 		";
-    $rResultset = mysql_query($sql) OR die(mysql_error()."<pre>".$sql."</pre>");
-      while ($aResult = mysql_fetch_array($rResultset)){
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
+      while ($aResult = $dbpre->fetch(PDO::FETCH_ASSOC)){
 ?>
         <item>
         <title><?php echo nocss($aResult['title']); ?></title>

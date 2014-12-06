@@ -14,8 +14,9 @@ if ($_GET['action'] == 'edit'){
             ".$PREFIX."_topics
 	    WHERE id  = '".presql($_GET['topicid'])."'
 	  ";
-	   $kategorie2 = mysql_query($kategoriesql) OR die("<pre>\n".$kategoriesql."</pre>\n".mysql_error());
-    while ($kategorierow = mysql_fetch_assoc($kategorie2)) {
+	   $dbpre1 = $dbc->prepare($kategoriesql);
+	   $dbpre1->execute();
+    while ($kategorierow = $dbpre1->fetch(PDO::FETCH_ASSOC)) {
 	$kategorie = $kategorierow['title'];
 	$kategorieid = $kategorierow['id'];
 	}
@@ -33,11 +34,12 @@ if (isset($_GET['postid'])) {
             ".$PREFIX."_posts
 	    WHERE id = '".presql($_GET['postid'])."'
 	  ";
-	   $quote2 = mysql_query($quotesql) OR die("<pre>\n".$quotesql."</pre>\n".mysql_error());
-    if (mysql_num_rows($quote2) == 0) {
+	   $dbpre2 = $dbc->prepare($quotesql);
+	   $dbpre2->execute();
+    if ($dbpre2->rowCount() < 1) {
 	    echo l158;
 	}
-    while ($orow = mysql_fetch_assoc($quote2)) {
+    while ($orow = $dbpre2->fetch(PDO::FETCH_ASSOC)) {
 	$quotepost = nocss($orow['post']);
         $opostid = nocss($orow['id']);
         $oposttitle = nocss($orow['title']);
@@ -65,7 +67,8 @@ WHERE
 AND
        autor_id = '".$_SESSION['id']."'
 ";
-	  $result2 = mysql_query($sql2d) OR die("<pre>\n".$sql2d."</pre>\n".mysql_error());
+	  $dbpre3 = $dbc->prepare($sql2d);
+	  $dbpre3->execute();
 	  echo l153;
           header("Location: topic.php?id=".nocss($_GET['topicid'])."");
 
@@ -106,11 +109,12 @@ if ($_GET['action'] == 'newpost'){
             ".$PREFIX."_topics
 	    WHERE id  = '".presql($_GET['topicid'])."'
 	  ";
-	   $kategorie2 = mysql_query($kategoriesql) OR die("<pre>\n".$kategoriesql."</pre>\n".mysql_error());
-			if (mysql_num_rows($kategorie2) == 0) {
+	   $dbpre5 = $dbc->prepare($kategoriesql);
+	   $dbpre5->execute();
+	if ($dbpre5->rowCount() < 1) {
 	    echo l151;
 	}
-    while ($kategorierow = mysql_fetch_assoc($kategorie2)) {
+    while ($kategorierow = $dbpre5->fetch(PDO::FETCH_ASSOC)) {
 	$kategorie = $kategorierow['title'];
 	$kategorieid = $kategorierow['id'];
 		  $auesql = "
@@ -120,8 +124,9 @@ if ($_GET['action'] == 'newpost'){
             ".$PREFIX."_user
 	    WHERE id  = '".presql($kategorierow['autor_id'])."'
 	  ";
-	   $aue2 = mysql_query($auesql) OR die("<pre>\n".$auesql."</pre>\n".mysql_error());
-	   while ($auerow = mysql_fetch_assoc($aue2)) {
+	   $dbpre6 = $dbc->prepare($auesql);
+	   $dbpre6->execute();
+	   while ($auerow = $dbpre6->fetch(PDO::FETCH_ASSOC)) {
 		  $autoremail = $auerow['email'];
    }
 	}
@@ -135,10 +140,11 @@ if ($_GET['action'] == 'newpost'){
 	    else {	
 	  $bodynachricht = presql($_REQUEST['body']);
 	  $sql2 = "INSERT INTO ".$PREFIX."_posts (autor_id, topic_id, title, date, post) VALUES ('".$_SESSION['id']."','".presql($_GET['topicid'])."','".presql($_REQUEST['titel'])."', now(),'".$bodynachricht."')";
-	  $result2 = mysql_query($sql2) OR die("<pre>\n".$sql2."</pre>\n".mysql_error());
-	  $ID = mysql_insert_id();
+	  $dbpre7 = $dbc->prepare($sql2);
+	  $dbpre7->execute();
+	  $ID = $dbc->lastInsertId();
 $from = "From: ".$site_email."\n";
-$from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+$from .= "Content-Type: text/html; charset=UTF-8\n";
 if($site_user_act == '1') { mail(presql(trim($autoremail)), l312, "".l313." "."<br>"."<a href=\"".$site_url."/topic.php?id=".presql($_GET['topicid'])."#".$ID."\">".$site_url."/topic.php?id=".presql($_GET['topicid'])."#".$ID."</a>", $from); }
 	  echo l153;
 	  header("Location: topic.php?id=".nocss($_GET['topicid'])."");
@@ -170,11 +176,12 @@ if (isset($_GET['quoteid'])) {
             ".$PREFIX."_posts
 	    WHERE id = '".presql($_GET['quoteid'])."'
 	  ";
-	   $quote2 = mysql_query($quotesql) OR die("<pre>\n".$quotesql."</pre>\n".mysql_error());
-    if (mysql_num_rows($quote2) == 0) {
+	   $dbpre9 = $dbc->prepare($quotesql);
+	   $dbpre9->execute();
+    if ($dbpre9->rowCount() < 1) {
 	    echo l158;
 	}
-    while ($orow = mysql_fetch_assoc($quote2)) {
+    while ($orow = $dbpre9->fetch(PDO::FETCH_ASSOC)) {
 	$quotepost = nocss($orow['post']);
 	$quote = '[quote]'.$quotepost.'[/quote]';
 	}
@@ -190,8 +197,9 @@ echo $quote;
 
 
 else {
-$result_total = mysql_query('SELECT COUNT(*) as `total` FROM `'.$PREFIX.'_posts` WHERE topic_id = '.presql($_GET['id']).'');
-$row_total = mysql_fetch_assoc($result_total);
+$dbpre10 = $dbc->prepare('SELECT COUNT(*) as `total` FROM `'.$PREFIX.'_posts` WHERE topic_id = '.presql($_GET['id']).'');
+$dbpre10->execute();
+$row_total = $dbpre10->fetch(PDO::FETCH_ASSOC);
 $iCounter = 0; // Werbung
 $gesamte_anzahl = $row_total['total'];
 $ergebnisse_pro_seite = 15;
@@ -235,8 +243,9 @@ $limit = ($seite*$ergebnisse_pro_seite)-$ergebnisse_pro_seite;
 		LIMIT
 		    1
 		";
-    $resulttit = mysql_query($sqltit) OR die("<pre>\n".$sqltit."</pre>\n".mysql_error());
-while ($rowtit = mysql_fetch_assoc($resulttit)) {
+    $dbpre11 = $dbc->prepare($sqltit);
+    $dbpre11->execute();
+while ($rowtit = $dbpre11->fetch(PDO::FETCH_ASSOC)) {
 $subsite_title = nocss($rowtit['title']);
 }
 include 'design/header.php';
@@ -255,11 +264,12 @@ if (empty($_GET['seite_nr'])) {
     }
 }
 echo '<a target="_blank" href="rss/topic.php?id='.nocss($_GET['id']).''.$quseite.'"><img title="RSS" src="images/icons/mix/rss.png" alt="" /> '.l160.'</a>';
-    $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-			if (mysql_num_rows($result) == 0) {
+    $dbpre12 = $dbc->prepare($sql);
+    $dbpre12->execute();
+	if ($dbpre12->rowCount() < 1) {
 	    echo l161;
 	}
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $dbpre12->fetch(PDO::FETCH_ASSOC)) {
 /*Werbung*/
 if($iCounter == 5) {
 include 'ads.php';
@@ -269,8 +279,9 @@ $iCounter = 0;
 
 $iCounter ++; // Werbung
 		$a = "SELECT username, avatar, email, signature, website, facebook, twitter, googleplus, rang FROM ".$PREFIX."_user WHERE id=".$row['autor_id']."";
- $a_result = mysql_query($a) OR die("<pre>\n".$a."</pre>\n".mysql_error());
-    while ($au = mysql_fetch_assoc($a_result)) {
+ $dbpre13 = $dbc->prepare($a);
+ $dbpre13->execute();
+    while ($au = $dbpre13->fetch(PDO::FETCH_ASSOC)) {
 	$user = nocss($au['username']);
 	$user_email = nocss($au['email']);
 	$signature = nocss($au['signature']);
@@ -347,7 +358,7 @@ else {
 <?php
 }
 ?>
-<a target="_blank" href="rss/userposts.php?id=<?php echo $row['autor_id']; ?>">
+<a target="_blank" href="rss/userposts.php?id=<?php echo nocss($row['autor_id']); ?>">
 <img title="RSS" src="images/icons/mix/rss.png" alt="" /></a> 
 </div>
 <div class="postmain">
@@ -381,19 +392,19 @@ echo nl2p(parse_bbcode($signature));
 ?>
 </div>
 <div class="postfunc">
-<a href="topic.php?id=<?php echo $row['topic_id']; echo $quseite; ?>#<?php echo $row['id']; ?>">
+<a href="topic.php?id=<?php echo nocss($row['topic_id']); echo $quseite; ?>#<?php echo nocss($row['id']); ?>">
 <img title="<?php echo l165; ?>" src="images/icons/mix/link.png" alt="" /></a><br>
 <?php
 if(isset($_SESSION['id']))
 	{
 ?>
-<a href="topic.php?action=newpost&topicid=<?php echo $row['topic_id']; ?>&quoteid=<?php echo $row['id']; ?>">
+<a href="topic.php?action=newpost&topicid=<?php echo nocss($row['topic_id']); ?>&quoteid=<?php echo nocss($row['id']); ?>">
 <img title="<?php echo l166; ?>" src="images/icons/mix/quote.png" alt="" /></a>
 <?php
 if($_SESSION['id'] == $row['autor_id'])
 	{
 ?>
-<a href="topic.php?action=edit&topicid=<?php echo $row['topic_id']; ?>&postid=<?php echo $row['id']; ?>">
+<a href="topic.php?action=edit&topicid=<?php echo nocss($row['topic_id']); ?>&postid=<?php echo nocss($row['id']); ?>">
 <img title="Edit" src="images/icons/silk/page_white_edit.png" alt="" /></a>
 <?php
 }

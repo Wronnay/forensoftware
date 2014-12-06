@@ -4,8 +4,8 @@ ob_start();
 @session_start();
 include 'check.php';
 include '../inc/config.php';
-mysql_connect($HOST,$USER,$PW)or die(mysql_error());
-mysql_select_db($DB)or die(mysql_error());
+$dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
+$dbc->query("SET CHARACTER SET utf8");
 include '../inc/functions.php';
 include '../inc/data.php';
 ini_set("session.gc_maxlifetime", 2000);
@@ -38,7 +38,7 @@ include '../lang/en/1.php';
 <html>
  <head>
  <title><?php echo l290; ?> | ForenSoftware by WronnayScripts</title>
-<meta charset="ISO-8859-1"><link rel="shortcut icon" href="../images/system/favicon.ico">
+<meta charset="UTF-8"><link rel="shortcut icon" href="../images/system/favicon.ico">
 <link rel="stylesheet" type="text/css" href="../design/system/admin.css">
 <?php
 include '../inc/showbbc.php';

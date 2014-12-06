@@ -25,8 +25,9 @@ include 'inc/check.php';
                      WHERE
                          id = '".presql($_SESSION['id'])."'
                     ";
-            $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            $row = mysql_fetch_assoc($result);
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
+            $row = $dbpre->fetch(PDO::FETCH_ASSOC);
 ?>
 <h2><?php echo l92; ?>:</h2><br>
 <div class="spalte">
@@ -45,8 +46,9 @@ include 'inc/check.php';
                         FROM
                                ".$PREFIX."_user
                        ";
-                $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-                while($row = mysql_fetch_assoc($result))
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
+                while($row = $dbpre->fetch(PDO::FETCH_ASSOC))
                     $emails[] = $row['email'];
                 $sql = "SELECT
                                email
@@ -55,8 +57,9 @@ include 'inc/check.php';
                         WHERE
                                id = '".presql($_SESSION['id'])."'
                        ";
-                $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-                $row = mysql_fetch_assoc($result);
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
+                $row = $dbpre->fetch(PDO::FETCH_ASSOC);
 
                 if(trim($_POST['Email'])=='')
                     $errors[]= l95;
@@ -89,7 +92,8 @@ include 'inc/check.php';
                         WHERE
                                 id = '".presql($_SESSION['id'])."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
                 echo l99.
                      "\n";
             }
@@ -153,8 +157,9 @@ include 'inc/sbbcb.php';
                     WHERE
                         id = '".presql($_SESSION['id'])."'
                    ";
-            $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            $row = mysql_fetch_assoc($result);
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
+            $row = $dbpre->fetch(PDO::FETCH_ASSOC);
             if(!isset($_POST['Passwort'],
                       $_POST['Passwortwiederholung'],
                       $_POST['Altes_Passwort']))
@@ -187,7 +192,8 @@ include 'inc/sbbcb.php';
                         WHERE
                                 id = '".$_SESSION['id']."'
                        ";
-                mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+                $dbpre = $dbc->prepare($sql);
+                $dbpre->execute();
       $auesql = "
 	  SELECT
             email
@@ -195,12 +201,13 @@ include 'inc/sbbcb.php';
             ".$PREFIX."_user
 	    WHERE id  = '".presql($_SESSION['id'])."'
 	  ";
-	   $aue2 = mysql_query($auesql) OR die("<pre>\n".$auesql."</pre>\n".mysql_error());
-	   while ($auerow = mysql_fetch_assoc($aue2)) {
+	   $aue2 = $dbc->prepare($auesql);
+	   $aue2->execute();
+	   while ($auerow = $aue2->fetch(PDO::FETCH_ASSOC)) {
 		  $autoremail = $auerow['email'];
    }
                 $from = "From: ".$site_email."\n";
-$from .= "Content-Type: text/html; charset=ISO-8859-15\n";
+$from .= "Content-Type: text/html; charset=UTF-8\n";
 if($site_user_act == '1') { mail(presql(trim($autoremail)), l316,"".l317." "."<br>"."<a href=\"".$site_url."/forgotten.php\">".$site_url."/forgotten.php</a>", $from); }
                 echo l112.
                      "\n";
@@ -227,7 +234,7 @@ if($site_user_act == '1') { mail(presql(trim($autoremail)), l316,"".l317." "."<b
                  " action=\"myprofile.php\" ".
                  " method=\"post\" ".
                  " enctype=\"multipart/form-data\" ".
-                 " accept-charset=\"ISO-8859-1\">\n";
+                 " accept-charset=\"UTF-8\">\n";
             echo "<span style=\"font-weight:bold;\" ".
                  " title=\"".l116."\">\n".
                  "".l117.":\n".
@@ -292,7 +299,8 @@ if($site_user_act == '1') { mail(presql(trim($autoremail)), l316,"".l317." "."<b
                             WHERE
                                     id = ".$_SESSION['id']."
                            ";
-                    mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+                    $dbpre = $dbc->prepare($sql);
+                    $dbpre->execute();
 
                     echo l127.
                          "\n";
@@ -312,8 +320,9 @@ if($site_user_act == '1') { mail(presql(trim($autoremail)), l316,"".l317." "."<b
                     WHERE
                         id = '".$_SESSION['id']."'
                    ";
-            $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            $row = mysql_fetch_assoc($result);
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
+            $row = $dbpre->fetch(PDO::FETCH_ASSOC);
             unlink('avatare/'.$row['Avatar']);
             $sql = "UPDATE
                         ".$PREFIX."_user
@@ -322,7 +331,8 @@ if($site_user_act == '1') { mail(presql(trim($autoremail)), l316,"".l317." "."<b
                     WHERE
                         id = '".$_SESSION['id']."'
                    ";
-            mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
             echo l129.
                  "\n";
 				 header("Location: " . $_SERVER['PHP_SELF']);

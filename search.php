@@ -25,9 +25,10 @@ $what2 = str_replace('_', '%', presql($_GET['what']));
         ORDER BY
             date DESC
 		";
-    $result = mysql_query($sql) OR die(mysql_error()."<pre>".$sql."</pre>");
+    $dbpre = $dbc->prepare($sql);
+    $dbpre->execute();
 echo '<h2>'.l74.':</h2><p></p>';
-      while ($row = mysql_fetch_array($result)){
+      while ($row = $dbpre->fetch(PDO::FETCH_ASSOC)){
 ?>
 <div><h2><a href="topic.php?id=<?php echo nocss($row['topic_id']); ?>#<?php echo nocss($row['id']); ?>"><?php echo nocss($row['title']); ?></a></h2>
 		<p><a href="topic.php?id=<?php echo nocss($row['topic_id']); ?>#<?php echo nocss($row['id']); ?>"><?php echo nl2p(parse_bbcode($row['post'])); ?></a></p>

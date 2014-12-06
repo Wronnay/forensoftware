@@ -17,8 +17,9 @@ include 'design/header.php';
                     WHERE
                         username = '".presql(trim($_POST['username']))."'
                         ";
-            $result = mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            $row = mysql_fetch_assoc($result);
+            $dbpre = $dbc->prepare($sql);
+            $dbpre->execute();
+            $row = $dbpre->fetch(PDO::FETCH_ASSOC);
             if(!$row)
                 $errors[] = l7;
         }
@@ -39,8 +40,9 @@ include 'design/header.php';
                     WHERE
                         username = '".presql(trim($_POST['username']))."'
                    ";
-            mysql_query($sql) OR die("<pre>\n".$sql."</pre>\n".mysql_error());
-            $empfaenger = $row['email'];
+            $dbpre1 = $dbc->prepare($sql);
+            $dbpre1->execute();
+            $empfaenger = nocss($row['email']);
             $titel = l10;
             $mailbody = l11.
                         $passwort."\n\n".

@@ -15,4 +15,4 @@ Schritt 3:
 
 Schritt 4:
 ------------------------
--> den Ordner "install" löschen!
+-> den Ordner "install" lÃ¶schen!
