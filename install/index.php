@@ -81,12 +81,14 @@ else {
       $PW = '$PW';
       $DB = '$DB';
       $PREFIX = '$PREFIX';
+      $DBTYPE = '$DBTYPE';
       $daten = "<?php
       $HOST = '$_POST[host]'; 
       $USER = '$_POST[user]'; 
       $PW = '$_POST[pass]'; 
       $DB = '$_POST[database]'; 
       $PREFIX = '$_POST[prefix]';
+      $DBTYPE = 'mysql';
       ?>";
       fwrite($fp,$daten);
 include("../inc/config.php");
@@ -158,7 +160,7 @@ header("Location: ?install=3");
              " name=\"Registrieren\" ".
              " action=\"?install=3-1\" ".
              " method=\"post\" ".
-             " accept-charset=\"ISO-8859-1\">\n";
+             " accept-charset=\"UTF-8\">\n";
         echo "<input type=\"text\" name=\"Username\" value=\"Username\" onclick=\"if(this.value && this.value==this.defaultValue)this.value=''\" size=\"20\" class=\"li\">\n";
         echo "<br>\n";
         echo "<input type=\"password\" name=\"Password\" value=\"".l37."\" onclick=\"if(this.value && this.value==this.defaultValue)this.value=''\" size=\"20\" class=\"li\"> (".l37.")\n";

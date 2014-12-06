@@ -9,7 +9,7 @@ License: GNU General Public License
 <meta name="Generator" content="Wronnay ForenSoftware (http://Scripts.Wronnay.net)" />
 <meta name="description" content="<?php echo $site_description; ?>">
 <meta name="keywords" content="<?php echo $site_keywords; ?>">
-<meta charset="ISO-8859-1"><link rel="shortcut icon" href="<?php echo $site_favicon; ?>">
+<meta charset="UTF-8"><link rel="shortcut icon" href="<?php echo $site_favicon; ?>">
 <link rel="stylesheet" type="text/css" href="design/standard/main.css.php">
 <?php
 include base64_decode('aW5jL3Nob3diYmMucGhw');

@@ -24,7 +24,7 @@ echo "<img src=\"../images/smilies/".$smilieu['color']."/".$smilieu['url']."\" o
     <!-- <select size="1" onchange="insertProperty('color',this.value); this.selectedIndex=0;">
       <option value="rgb(0,0,0)">schwarz&nbsp;&nbsp;</option>
       <option value="rgb(255,0,0)">rot</option>
-      <option value="rgb(0,255,0)">grün</option>
+      <option value="rgb(0,255,0)">grÃ¼n</option>
       <option value="rgb(0,0,255)">blau</option>
     </select> -->
 
@@ -35,7 +35,7 @@ echo "<img src=\"../images/smilies/".$smilieu['color']."/".$smilieu['url']."\" o
     </select> -->
 
    <!--  <button type="button" onclick="generateColorTable('cpcontainer')" id="schriftbutton">
-      Farbwähler ein/aus
+      FarbwÃ¤hler ein/aus
     </button> -->
   </div>  <!-- #buttonleiste -->
 </div>

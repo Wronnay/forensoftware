@@ -14,14 +14,24 @@ function nl2p($str, $separator = "\n") {
 }
 function parse_bbcode($str)
 {
-  $str = htmlspecialchars($str, ENT_QUOTES, "UTF-8");
-		$smiliesql = "SELECT id, title, url, color FROM ".$GLOBALS[PREFIX]."_smilies WHERE color = 'green'";
- $dbpre = $dbc->prepare($smiliesql);
+    $filename = "inc/htmlpurifier/library/HTMLPurifier.auto.php";
+if (file_exists($filename)) {
+  require_once 'inc/htmlpurifier/library/HTMLPurifier.auto.php';
+}
+elseif (file_exists('../'.$filename)) {
+include_once '../'.$filename;
+}
+elseif (file_exists('../../'.$filename)) {
+include_once '../../'.$filename;
+}
+  $purifier = new HTMLPurifier();
+  $str = $purifier->purify($str);
+		$smiliesql = "SELECT id, title, url, color FROM ".$GLOBALS['PREFIX']."_smilies WHERE color = 'green'";
+ $dbpre = $GLOBALS['dbc']->prepare($smiliesql);
  $dbpre->execute();
     while ($smilieu = $dbpre->fetch(PDO::FETCH_ASSOC)) {
-$str = str_replace($smilieu['title'], '<img src="images/smilies/'.$smilieu['color'].'/'.$smilieu['url'].'" />', $str);
+$str = str_replace($smilieu['title'], '<img src="design/pics/smilies/'.$smilieu['color'].'/'.$smilieu['url'].'" />', $str);
 	}
-
   $str = preg_replace('#\[b\](.*)\[/b\]#isU', "<b>$1</b>", $str);
   $str = preg_replace('#\[i\](.*)\[/i\]#isU', "<i>$1</i>", $str);
   $str = preg_replace('#\[u\](.*)\[/u\]#isU', "<u>$1</u>", $str);
@@ -50,7 +60,7 @@ function showGravatarImage($emailaddress)
 }
 function nocss($nocss) {
   $nocss = strip_tags($nocss);
-  $nocss = htmlspecialchars($nocss, ENT_QUOTES, "UTF-8");
+  $nocss = htmlspecialchars($nocss, ENT_QUOTES, $GLOBALS['CHARSET']);
   return $nocss;
 }
 function presql($presql) {

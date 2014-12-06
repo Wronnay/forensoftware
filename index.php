@@ -23,5 +23,6 @@ header("Location: admin/index.php");
     while ($row = $dbpre->fetch(PDO::FETCH_ASSOC)) {
 include base64_decode('ZGVzaWduL2thdC5waHA=');
     }
+include 'inc/update.php';
 include base64_decode('ZGVzaWduL2Zvb3Rlci5waHA=');
 ?>

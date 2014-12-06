@@ -20,4 +20,5 @@ $design = nocss($_GET['design']);
 if (isset($design) and !empty($design)) {
 $_SESSION["design"] = $design;
 }  
+
 ?>
