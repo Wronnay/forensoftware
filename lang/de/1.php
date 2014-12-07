@@ -31,6 +31,7 @@ define('l29', 'Autor');
 define('l30', 'Antworten');
 define('l31', 'Themen');
 define('l32', 'Es gibt noch keine Themen!');
+define('l33', 'License');
 define('l36', 'Einloggen');
 define('l37', 'Passwort');
 define('l38', '<div class="fehler">Bitte füllen Sie alle Felder aus!</div>');

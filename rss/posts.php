@@ -1,11 +1,11 @@
 <?php
 error_reporting(0);
+@session_start();
 include '../inc/config.php';
 $dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
 $dbc->query("SET CHARACTER SET utf8");
 include '../inc/functions.php';
 ini_set("session.gc_maxlifetime", 2000);
-$default_lang = 'en';
 if(!isset($_SESSION['lang']))
 {
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
@@ -30,7 +30,7 @@ include '../lang/de/1.php';
 include '../lang/en/1.php';
   }
 include '../inc/data.php';
-  header("Content-Type: application/rss+xml");
+  header("Content-Type: application/rss+xml; charset=UTF-8");
   
   echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
 ?>

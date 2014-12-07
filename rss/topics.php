@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+@session_start();
 include '../inc/config.php';
 $dbc = new PDO(''.$DBTYPE.':host='.$HOST.';dbname='.$DB.'', ''.$USER.'', ''.$PW.'');
 $dbc->query("SET CHARACTER SET utf8");
